@@ -46,13 +46,13 @@ variable "appinsights_application_type" {
 variable "team_name" {
   type        = "string"
   description = "Team name"
-  default     = "Immigration"
+  default     = "ReferenceData"
 }
 
 variable "team_contact" {
   type        = "string"
   description = "Team contact"
-  default     = "#immigrationandasylum"
+  default     = "#referencedata"
 }
 
 variable "destroy_me" {

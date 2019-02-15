@@ -8,7 +8,7 @@ properties([
    [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '30']]
 ])
 
-echo "Building Immigration & Asylum infrastructure in environment '${params.ENVIRONMENT}'"
+echo "Building Reference Data infrastructure in environment '${params.ENVIRONMENT}'"
 
 node {
   env.PATH = "$env.PATH:/usr/local/bin"
@@ -19,6 +19,6 @@ node {
   }
 
   stage('Create shared infrastructure') {
-    sharedInfrastructurePipeline('ia', params.ENVIRONMENT, 'sandbox')
+    sharedInfrastructurePipeline('rd', params.ENVIRONMENT, 'sandbox')
   }
 }

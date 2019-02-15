@@ -6,7 +6,7 @@ locals {
   asp_sku_size = "${var.env == "prod" || var.env == "sprod" ? "I2" : "I1"}"
 }
 
-module "ia_app_service_plan" {
+module "rd_app_service_plan" {
   source              = "git@github.com:hmcts/cnp-module-app-service-plan?ref=master"
   location            = "${var.location}"
   resource_group_name = "${azurerm_resource_group.rg.name}"

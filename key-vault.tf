@@ -2,7 +2,7 @@ locals {
   key_vault_name = "${var.product}-${var.env}"
 }
 
-module "ia_key_vault" {
+module "rd_key_vault" {
   source                  = "git@github.com:hmcts/cnp-module-key-vault?ref=master"
   name                    = "${local.key_vault_name}"
   location                = "${var.location}"
