@@ -4,3 +4,6 @@ cfg-vmimg-store.json
 hashicorp-vault-token
 github-apikey
 .terraform
+.idea/
+*.iml
+.gradle/
