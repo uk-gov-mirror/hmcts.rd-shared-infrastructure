@@ -1,0 +1,24 @@
+#!groovy
+@Library('Infrastructure') _
+
+properties([
+    parameters([
+			choice(name: 'ENVIRONMENT', choices: 'sandbox\nsaat\nsprod', description: 'Environment where code should be build and deployed')
+		]),
+   [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '7', numToKeepStr: '30']]
+])
+
+echo "Building Immigration & Asylum infrastructure in environment '${params.ENVIRONMENT}'"
+
+node {
+  env.PATH = "$env.PATH:/usr/local/bin"
+
+  stage('Checkout') {
+    deleteDir()
+    checkout scm
+  }
+
+  stage('Create shared infrastructure') {
+    sharedInfrastructurePipeline('ia', params.ENVIRONMENT, 'sandbox')
+  }
+}
