@@ -24,10 +24,9 @@ variable "jenkins_AAD_objectId" {
   description = "This is the ID of the Application you wish to give access to the Key Vault via the access policy"
 }
 
-//TODO populate when this is available.
 variable "rd_product_group_object_id" {
   type    = "string"
-  default = ""
+  default = "35327411-b189-467e-a8db-9fb833745484"
 }
 
 // as of now, UK South is unavailable for Application Insights
