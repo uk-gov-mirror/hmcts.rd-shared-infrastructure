@@ -10,12 +10,4 @@ Subscription subscription = new Subscription(env)
 
 def product = 'rd'
 
-onMaster {
-  sharedInfrastructurePipeline(product, environment.nonProdName, subscription.nonProdName)
-  sharedInfrastructurePipeline(product, environment.demoName,    subscription.nonProdName)
-  sharedInfrastructurePipeline(product, environment.prodName,    subscription.prodName)
-}
-
-onPR {
-  sharedInfrastructurePipeline(product, environment.previewName, subscription.nonProdName)
-}
+withInfraPipeline('rd') {}
