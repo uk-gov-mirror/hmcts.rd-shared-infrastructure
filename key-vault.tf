@@ -15,6 +15,11 @@ module "rd_key_vault" {
   common_tags             = "${local.common_tags}"
 }
 
+data "azurerm_key_vault" "key_vault" {
+  name                = "${module.rd_key_vault.key_vault_name}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+}
+
 output "vaultName" {
   value = "${local.key_vault_name}"
 }
