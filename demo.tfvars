@@ -1,0 +1,1 @@
+external_hostname = "jrd.demo.platform.hmcts.net"
