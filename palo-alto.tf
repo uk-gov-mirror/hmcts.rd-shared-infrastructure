@@ -1,3 +1,8 @@
+locals {
+  trusted_vnet_name           = "core-infra-vnet-${var.env}"
+  trusted_vnet_resource_group = "core-infra-${var.env}"
+  trusted_vnet_subnet_name    = "palo-trusted"
+}
 module "palo_alto" {
   source       = "git@github.com:hmcts/cnp-module-palo-alto?ref=master"
   subscription = "${var.subscription}"
