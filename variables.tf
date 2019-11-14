@@ -66,4 +66,4 @@ variable "mgmt_subscription_id" {}
 variable "common_tags" {
   type = "map"
 }
-variable "external_hostname" {}
+//variable "external_hostname" {}

@@ -1,1 +1,1 @@
-external_hostname = "jrd.demo.platform.hmcts.net"
+//external_hostname = "jrd.demo.platform.hmcts.net"
