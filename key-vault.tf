@@ -23,19 +23,14 @@ data "azurerm_key_vault" "s2s" {
   resource_group_name = "rpe-service-auth-provider-${var.env}"
 }
 
-data "azurerm_key_vault_secret" "prd-s2s" {
-  name         = "microservicekey-rd-professional-api"
-  key_vault_id = "${data.azurerm_key_vault.s2s.id}"
-}
-
 resource "azurerm_key_vault_secret" "prd-s2s" {
   name         = "s2s-secret"
   value        = "${data.azurerm_key_vault_secret.prd-s2s.value}"
   key_vault_id = "${module.rd_key_vault.key_vault_id}"
 }
 
-data "azurerm_key_vault_secret" "user-profile-s2s" {
-  name         = "microservicekey-rd-user-profile-api"
+data "azurerm_key_vault_secret" "prd-s2s" {
+  name         = "microservicekey-rd-professional-api"
   key_vault_id = "${data.azurerm_key_vault.s2s.id}"
 }
 
@@ -43,6 +38,11 @@ resource "azurerm_key_vault_secret" "user-profile-s2s" {
   name         = "up-s2s-secret"
   value        = "${data.azurerm_key_vault_secret.user-profile-s2s.value}"
   key_vault_id = "${module.rd_key_vault.key_vault_id}"
+}
+
+data "azurerm_key_vault_secret" "user-profile-s2s" {
+  name         = "microservicekey-rd-user-profile-api"
+  key_vault_id = "${data.azurerm_key_vault.s2s.id}"
 }
 
 output "vaultName" {
