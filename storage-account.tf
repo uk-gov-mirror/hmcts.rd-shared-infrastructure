@@ -13,12 +13,6 @@ locals {
   client_service_names = ["jrdtest"]
 }
 
-data "azurerm_subnet" "trusted_subnet" {
-  name                 = "${local.trusted_vnet_subnet_name}"
-  virtual_network_name = "${local.trusted_vnet_name}"
-  resource_group_name  = "${local.trusted_vnet_resource_group}"
-}
-
 data "azurerm_subnet" "jenkins_subnet" {
   provider             = "azurerm.mgmt"
   name                 = "jenkins-subnet"
@@ -39,13 +33,6 @@ resource "azurerm_storage_account" "storage_account" {
  //   name          = "${var.external_hostname}"
   //  use_subdomain = "false"
  // }
-
-
-  network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_subnet.trusted_subnet.id}", "${data.azurerm_subnet.jenkins_subnet.id}"]
-    bypass                     = ["Logging", "Metrics", "AzureServices"]
-    default_action             = "Deny"
-  }
 
   tags = "${local.tags}"
 }
