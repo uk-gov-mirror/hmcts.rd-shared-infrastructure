@@ -1,9 +1,7 @@
 provider "azurerm" {
-  alias           = "mgmt"
-  subscription_id = "${var.mgmt_subscription_id}"
-  version         = "=1.33.1"
+  alias           = "aks-infra"
+  subscription_id = "${var.aks_infra_subscription_id}"
 }
-
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
   mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
@@ -13,61 +11,87 @@ locals {
   client_service_names = ["jrdtest"]
 }
 
-data "azurerm_subnet" "jenkins_subnet" {
-  provider             = "azurerm.mgmt"
-  name                 = "jenkins-subnet"
-  virtual_network_name = "${local.mgmt_network_name}"
-  resource_group_name  = "${local.mgmt_network_name}"
+module "storage_account" {
+  source                    = "git@github.com:hmcts/cnp-module-storage-account.git?ref=0.0.1"
+  env                       = "${var.env}"
+  storage_account_name      = "${local.account_name}"
+  resource_group_name       = "${azurerm_resource_group.rg.name}"
+  location                  = "${var.location}"
+  account_kind              = "BlobStorage"
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+  access_tier               = "Hot"
+
+//  enable_blob_encryption    = true
+//  enable_file_encryption    = true
+  enable_https_traffic_only = true
+
+  // Tags
+  common_tags  = "${local.tags}"
+  team_contact = "${var.team_contact}"
+  destroy_me   = "${var.destroy_me}"
+
+  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
 }
 
-resource "azurerm_storage_account" "storage_account" {
-  name                = "${local.account_name}"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
+data "azurerm_virtual_network" "aks_core_vnet" {
+  provider             = "azurerm.aks-infra"
+  name                 = "core-${var.env}-vnet"
+  resource_group_name  = "aks-infra-${var.env}-rg"
+}
 
-  location                 = "UK West"
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  account_kind             = "BlobStorage"
+data "azurerm_subnet" "aks-00" {
+  provider             = "azurerm.aks-infra"
+  name                 = "aks-00"
+  virtual_network_name = "${data.azurerm_virtual_network.aks_core_vnet.name}"
+  resource_group_name  = "${data.azurerm_virtual_network.aks_core_vnet.resource_group_name}"
+}
 
- // custom_domain {
- //   name          = "${var.external_hostname}"
-  //  use_subdomain = "false"
- // }
+data "azurerm_subnet" "aks-01" {
+  provider             = "azurerm.aks-infra"
+  name                 = "aks-01"
+  virtual_network_name = "${data.azurerm_virtual_network.aks_core_vnet.name}"
+  resource_group_name  = "${data.azurerm_virtual_network.aks_core_vnet.resource_group_name}"
+}
 
-  tags = "${local.tags}"
+// Storage Account Vault Secrets
+resource "azurerm_key_vault_secret" "storageaccount_id" {
+  name      = "storage-account-id"
+  value     = "${module.storage_account.storageaccount_id}"
+  key_vault_id = "${module.shared_vault.key_vault_id}"
 }
 
 resource "azurerm_storage_container" "service_containers" {
   name                 = "${local.client_service_names[count.index]}"
-  resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
-  storage_account_name = "${azurerm_storage_account.storage_account.name}"
+  resource_group_name  = "${module.storage_account.storageaccount_resource_group_name}"
+  storage_account_name = "${module.storage_account.storageaccount_name}"
   count                = "${length(local.client_service_names)}"
 }
 
 resource "azurerm_storage_container" "service_rejected_containers" {
   name                 = "${local.client_service_names[count.index]}-rejected"
-  resource_group_name  = "${azurerm_storage_account.storage_account.resource_group_name}"
-  storage_account_name = "${azurerm_storage_account.storage_account.name}"
+  resource_group_name  = "${module.storage_account.storageaccount_resource_group_name}"
+  storage_account_name = "${module.storage_account.storageaccount_name}"
   count                = "${length(local.client_service_names)}"
 }
 
 resource "azurerm_key_vault_secret" "storage_account_name" {
   name      = "storage-account-name"
-  value     = "${azurerm_storage_account.storage_account.name}"
+  value     = "${module.storage_account.storageaccount_name}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
 resource "azurerm_key_vault_secret" "storage_account_primary_key" {
   name      = "storage-account-primary-key"
-  value     = "${azurerm_storage_account.storage_account.primary_access_key}"
-  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+  value     = "${module.storage_account.storageaccount_primary_access_key}"
+  key_vault_id = "${module.vault.key_vault_id}"
 }
 
 output "storage_account_name" {
-  value = "${azurerm_storage_account.storage_account.name}"
+  value = "${module.storage_account.storageaccount_name}"
 }
 
 output "storage_account_primary_key" {
   sensitive = true
-  value     = "${azurerm_storage_account.storage_account.primary_access_key}"
+  value     = "${module.storage_account.storageaccount_primary_access_key}"
 }
