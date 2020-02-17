@@ -56,14 +56,14 @@ data "azurerm_subnet" "aks-01" {
 
 resource "azurerm_storage_container" "service_containers" {
   name                 = "${local.client_service_names[count.index]}"
-  resource_group_name  = "${module.storage_account.resource_group_name}"
+  resource_group_name  = "${module.storage_account.storageaccount_resource_group_name}"
   storage_account_name = "${module.storage_account.storageaccount_name}"
   count                = "${length(local.client_service_names)}"
 }
 
 resource "azurerm_storage_container" "service_rejected_containers" {
   name                 = "${local.client_service_names[count.index]}-rejected"
-  resource_group_name  = "${module.storage_account.resource_group_name}"
+  resource_group_name  = "${module.storage_account.storageaccount_resource_group_name}"
   storage_account_name = "${module.storage_account.storageaccount_name}"
   count                = "${length(local.client_service_names)}"
 }
@@ -82,7 +82,7 @@ resource "azurerm_key_vault_secret" "storageaccount_id" {
 
 resource "azurerm_key_vault_secret" "storage_account_primary_key" {
   name      = "storage-account-primary-key"
-  value     = "${azurerm_storage_account.storage_account.primary_access_key}"
+  value     = "${module.storage_account.storageaccount_primary_access_key}"
   vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
 }
 
