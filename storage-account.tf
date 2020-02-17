@@ -56,14 +56,14 @@ data "azurerm_subnet" "aks-01" {
 
 resource "azurerm_storage_container" "service_containers" {
   name                 = "${local.client_service_names[count.index]}"
-  resource_group_name  = "${module.storage_account.storageaccount_resource_group_name}"
+  resource_group_name  = "${azurerm_resource_group.rg.name}"
   storage_account_name = "${module.storage_account.storageaccount_name}"
   count                = "${length(local.client_service_names)}"
 }
 
 resource "azurerm_storage_container" "service_rejected_containers" {
   name                 = "${local.client_service_names[count.index]}-rejected"
-  resource_group_name  = "${module.storage_account.storageaccount_resource_group_name}"
+  resource_group_name  = "${azurerm_resource_group.rg.name}"
   storage_account_name = "${module.storage_account.storageaccount_name}"
   count                = "${length(local.client_service_names)}"
 }
