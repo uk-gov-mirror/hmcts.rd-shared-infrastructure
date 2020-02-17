@@ -3,7 +3,6 @@ provider "azurerm" {
   subscription_id = "${var.mgmt_subscription_id}"
   version         = "=1.33.1"
 }
-
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
   mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
@@ -11,13 +10,6 @@ locals {
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
   client_service_names = ["jrdtest"]
-}
-
-data "azurerm_subnet" "jenkins_subnet" {
-  provider             = "azurerm.mgmt"
-  name                 = "jenkins-subnet"
-  virtual_network_name = "${local.mgmt_network_name}"
-  resource_group_name  = "${local.mgmt_network_name}"
 }
 
 resource "azurerm_storage_account" "storage_account" {
@@ -32,6 +24,7 @@ resource "azurerm_storage_account" "storage_account" {
   //  use_subdomain = "false"
  // }
   tags = "${local.tags}"
+
 }
 
 resource "azurerm_storage_container" "service_containers" {
@@ -63,7 +56,6 @@ resource "azurerm_key_vault_secret" "storage_account_primary_key" {
 output "storage_account_name" {
   value = "${azurerm_storage_account.storage_account.name}"
 }
-
 
 output "storage_account_primary_key" {
   sensitive = true
