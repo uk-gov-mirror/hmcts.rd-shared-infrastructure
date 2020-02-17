@@ -23,17 +23,14 @@ data "azurerm_subnet" "jenkins_subnet" {
 resource "azurerm_storage_account" "storage_account" {
   name                = "${local.account_name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
-
   location                 = "UK West"
   account_tier             = "Standard"
   account_replication_type = "LRS"
   account_kind             = "BlobStorage"
-
  // custom_domain {
  //   name          = "${var.external_hostname}"
   //  use_subdomain = "false"
  // }
-
   tags = "${local.tags}"
 }
 
@@ -66,6 +63,7 @@ resource "azurerm_key_vault_secret" "storage_account_primary_key" {
 output "storage_account_name" {
   value = "${azurerm_storage_account.storage_account.name}"
 }
+
 
 output "storage_account_primary_key" {
   sensitive = true
