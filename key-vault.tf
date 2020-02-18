@@ -45,6 +45,11 @@ data "azurerm_key_vault_secret" "user-profile-s2s" {
   key_vault_id = "${data.azurerm_key_vault.s2s.id}"
 }
 
+data "azurerm_key_vault" "key_vault" {
+  name                = "${module.rd_key_vault.key_vault_name}"
+  resource_group_name = "${azurerm_resource_group.rg.name}"
+}
+
 output "vaultName" {
   value = "${local.key_vault_name}"
 }
