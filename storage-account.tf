@@ -27,13 +27,6 @@ resource "azurerm_storage_account" "storage_account" {
   //  use_subdomain = "false"
  // }
 
-
-  network_rules {
-    virtual_network_subnet_ids = ["${data.azurerm_subnet.trusted_subnet.id}", "${data.azurerm_subnet.jenkins_subnet.id}"]
-    bypass                     = ["Logging", "Metrics", "AzureServices"]
-    default_action             = "Deny"
-  }
-
   tags = "${local.tags}"
 }
 
