@@ -6,3 +6,8 @@ locals {
     "Destroy Me"   = "${var.destroy_me}"
   }
 }
+tags = "${merge(var.common_tags,
+        map("Team Contact", "#referencedata")
+        )}"
+
+ }	}
