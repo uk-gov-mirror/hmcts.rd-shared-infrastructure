@@ -13,19 +13,6 @@ locals {
   client_service_names = ["jrdtest"]
 }
 
-data "azurerm_subnet" "trusted_subnet" {
-  name                 = "${local.trusted_vnet_subnet_name}"
-  virtual_network_name = "${local.trusted_vnet_name}"
-  resource_group_name  = "${local.trusted_vnet_resource_group}"
-}
-
-data "azurerm_subnet" "jenkins_subnet" {
-  provider             = "azurerm.mgmt"
-  name                 = "jenkins-subnet"
-  virtual_network_name = "${local.mgmt_network_name}"
-  resource_group_name  = "${local.mgmt_network_name}"
-}
-
 resource "azurerm_storage_account" "storage_account" {
   name                = "${local.account_name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
