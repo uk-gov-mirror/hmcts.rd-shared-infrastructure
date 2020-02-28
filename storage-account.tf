@@ -1,4 +1,4 @@
-provider "azurerm" {
+/*provider "azurerm" {
   alias           = "mgmt"
   subscription_id = "${var.mgmt_subscription_id}"
   version         = "=1.33.1"
@@ -61,3 +61,4 @@ output "storage_account_primary_key" {
   sensitive = true
   value     = "${azurerm_storage_account.storage_account.primary_access_key}"
 }
+*/
