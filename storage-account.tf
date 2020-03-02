@@ -2,9 +2,15 @@ provider "azurerm" {
   alias           = "aks-infra"
   subscription_id = "${var.aks_infra_subscription_id}"
 }
+
+provider "azurerm" {
+  alias           = "mgmt"
+  subscription_id = "${var.mgmt_subscription_id}"
+}
+
 locals {
   account_name      = "${replace("${var.product}${var.env}", "-", "")}"
-  mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
+  mgmt_network_name = "${var.subscription == "prod" || var.subscription == "nonprod" ? "cftptl-intsvc" : "cftsbox-intsvc"}"
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
@@ -31,7 +37,20 @@ module "storage_account" {
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
 
-  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}"]
+  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}","${data.azurerm_subnet.jenkins-subnet}"]
+}
+
+data "azurerm_virtual_network" "mgmt_vnet" {
+  provider             = "azurerm.aks-infra"
+  name                 = "core-${local.mgmt_network_name}-vnet"
+  resource_group_name  = "aks-infra-${local.mgmt_network_name}-rg"
+}
+
+data "azurerm_subnet" "jenkins-subnet" {
+  provider             = "azurerm.mgmt"
+  name                 = "iaas"
+  virtual_network_name = "${data.azurerm_virtual_network.mgmt_vnet.name}"
+  resource_group_name  = "${data.azurerm_virtual_network.mgmt_vnet.resource_group_name}"
 }
 
 data "azurerm_virtual_network" "aks_core_vnet" {
