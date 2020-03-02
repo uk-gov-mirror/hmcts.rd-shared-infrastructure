@@ -37,7 +37,7 @@ module "storage_account" {
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
 
-  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}","${data.azurerm_subnet.jenkins-subnet}"]
+  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}","${data.azurerm_subnet.jenkins-subnet.id}"]
 }
 
 data "azurerm_virtual_network" "mgmt_vnet" {
