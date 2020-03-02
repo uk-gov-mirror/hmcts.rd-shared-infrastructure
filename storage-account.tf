@@ -42,8 +42,8 @@ module "storage_account" {
 
 data "azurerm_virtual_network" "mgmt_vnet" {
   provider            = "azurerm.aks-infra"
-  name                = "core-${local.mgmt_network_name}-vnet"
-  resource_group_name = "aks-infra-${local.mgmt_network_name}-rg"
+  name                = "${local.mgmt_network_name}"
+  resource_group_name = "${local.mgmt_network_name}"
 }
 
 data "azurerm_subnet" "jenkins-subnet" {
