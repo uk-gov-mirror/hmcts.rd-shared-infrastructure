@@ -18,18 +18,18 @@ locals {
 }
 
 module "storage_account" {
-  source                    = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
-  env                       = "${var.env}"
-  storage_account_name      = "${local.account_name}"
-  resource_group_name       = "${azurerm_resource_group.rg.name}"
-  location                  = "${var.location}"
-  account_kind              = "BlobStorage"
-  account_tier              = "Standard"
-  account_replication_type  = "LRS"
-  access_tier               = "Hot"
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  env                      = "${var.env}"
+  storage_account_name     = "${local.account_name}"
+  resource_group_name      = "${azurerm_resource_group.rg.name}"
+  location                 = "${var.location}"
+  account_kind             = "BlobStorage"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  access_tier              = "Hot"
 
-//  enable_blob_encryption    = true
-//  enable_file_encryption    = true
+  //  enable_blob_encryption    = true
+  //  enable_file_encryption    = true
   enable_https_traffic_only = true
 
   // Tags
@@ -37,13 +37,13 @@ module "storage_account" {
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
 
-  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}","${data.azurerm_subnet.jenkins-subnet.id}"]
+  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}", "${data.azurerm_subnet.jenkins-subnet.id}"]
 }
 
 data "azurerm_virtual_network" "mgmt_vnet" {
-  provider             = "azurerm.aks-infra"
-  name                 = "core-${local.mgmt_network_name}-vnet"
-  resource_group_name  = "aks-infra-${local.mgmt_network_name}-rg"
+  provider            = "azurerm.aks-infra"
+  name                = "core-${local.mgmt_network_name}-vnet"
+  resource_group_name = "aks-infra-${local.mgmt_network_name}-rg"
 }
 
 data "azurerm_subnet" "jenkins-subnet" {
@@ -54,9 +54,9 @@ data "azurerm_subnet" "jenkins-subnet" {
 }
 
 data "azurerm_virtual_network" "aks_core_vnet" {
-  provider             = "azurerm.aks-infra"
-  name                 = "core-${var.env}-vnet"
-  resource_group_name  = "aks-infra-${var.env}-rg"
+  provider            = "azurerm.aks-infra"
+  name                = "core-${var.env}-vnet"
+  resource_group_name = "aks-infra-${var.env}-rg"
 }
 
 data "azurerm_subnet" "aks-00" {
@@ -94,8 +94,8 @@ resource "azurerm_key_vault_secret" "storage_account_name" {
 }
 
 resource "azurerm_key_vault_secret" "storageaccount_id" {
-  name      = "storage-account-id"
-  value     = "${module.storage_account.storageaccount_id}"
+  name         = "storage-account-id"
+  value        = "${module.storage_account.storageaccount_id}"
   key_vault_id = "${data.azurerm_key_vault.key_vault.id}"
 }
 
