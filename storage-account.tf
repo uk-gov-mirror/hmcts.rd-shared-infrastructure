@@ -14,7 +14,7 @@ locals {
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
-  client_service_names = ["jrdtest"]
+  client_service_names = ["jud-ref-data"]
 }
 
 module "storage_account" {
@@ -80,12 +80,12 @@ resource "azurerm_storage_container" "service_containers" {
   count                = "${length(local.client_service_names)}"
 }
 
-/*resource "azurerm_storage_container" "service_rejected_containers" {
-  name                 = "${local.client_service_names[count.index]}-rejected"
+resource "azurerm_storage_container" "service_rejected_containers" {
+  name                 = "${local.client_service_names[count.index]}-archive"
   resource_group_name  = "${azurerm_resource_group.rg.name}"
   storage_account_name = "${module.storage_account.storageaccount_name}"
   count                = "${length(local.client_service_names)}"
-}*/
+}
 
 resource "azurerm_key_vault_secret" "storage_account_name" {
   name      = "storage-account-name"
