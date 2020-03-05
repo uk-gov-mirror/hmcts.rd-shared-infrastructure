@@ -10,4 +10,3 @@ locals {
     map("Team Contact", "#referencedata")
   )}"
 }
-
