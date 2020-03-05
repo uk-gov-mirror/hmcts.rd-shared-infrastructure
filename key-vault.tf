@@ -18,33 +18,6 @@ module "rd_key_vault" {
   managed_identity_object_id = "${var.managed_identity_object_id}"
 }
 
-data "azurerm_key_vault" "s2s" {
-  name                = "s2s-${var.env}"
-  resource_group_name = "rpe-service-auth-provider-${var.env}"
-}
-
-resource "azurerm_key_vault_secret" "prd-s2s" {
-  name         = "s2s-secret"
-  value        = "${data.azurerm_key_vault_secret.prd-s2s.value}"
-  key_vault_id = "${module.rd_key_vault.key_vault_id}"
-}
-
-data "azurerm_key_vault_secret" "prd-s2s" {
-  name         = "microservicekey-rd-professional-api"
-  key_vault_id = "${data.azurerm_key_vault.s2s.id}"
-}
-
-resource "azurerm_key_vault_secret" "user-profile-s2s" {
-  name         = "up-s2s-secret"
-  value        = "${data.azurerm_key_vault_secret.user-profile-s2s.value}"
-  key_vault_id = "${module.rd_key_vault.key_vault_id}"
-}
-
-data "azurerm_key_vault_secret" "user-profile-s2s" {
-  name         = "microservicekey-rd-user-profile-api"
-  key_vault_id = "${data.azurerm_key_vault.s2s.id}"
-}
-
 data "azurerm_key_vault" "key_vault" {
   name                = "${module.rd_key_vault.key_vault_name}"
   resource_group_name = "${azurerm_resource_group.rg.name}"
