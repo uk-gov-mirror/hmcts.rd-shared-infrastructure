@@ -1,4 +1,9 @@
 provider "azurerm" {
+  alias           = "aks-infra"
+  subscription_id = "${var.aks_infra_subscription_id}"
+}
+
+provider "azurerm" {
   alias           = "mgmt"
   subscription_id = "${var.mgmt_subscription_id}"
 }
@@ -37,6 +42,12 @@ module "storage_account" {
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
 
+}
+
+data "azurerm_virtual_network" "mgmt_vnet" {
+  provider            = "azurerm.mgmt"
+  name                = "${local.mgmt_network_name}"
+  resource_group_name = "${local.mgmt_network_name}"
 }
 
 data "azurerm_subnet" "jenkins_subnet" {
