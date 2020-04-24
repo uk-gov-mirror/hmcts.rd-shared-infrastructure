@@ -60,10 +60,14 @@ variable "destroy_me" {
   default     = "No"
 }
 
+variable "managed_identity_object_id" {
+  default = ""
+}
+
 variable "subscription" {}
+
 variable "mgmt_subscription_id" {}
 
 variable "common_tags" {
   type = "map"
 }
-//variable "external_hostname" {}
