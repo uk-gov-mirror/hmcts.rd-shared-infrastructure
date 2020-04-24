@@ -5,7 +5,7 @@ provider "azurerm" {
 }
 
 locals {
-
+  account_name      = "${replace("${var.product}${var.env}", "-", "")}"
   mgmt_network_name = "core-cftptl-intsvc-vnet"
   mgmt_network_rg_name = "aks-infra-cftptl-intsvc-rg"
 
