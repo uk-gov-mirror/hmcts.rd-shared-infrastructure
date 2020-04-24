@@ -39,12 +39,6 @@ module "storage_account" {
 
 }
 
-data "azurerm_virtual_network" "mgmt_vnet" {
-  provider            = "azurerm.mgmt"
-  name                = "${local.mgmt_network_name}"
-  resource_group_name = "${local.mgmt_network_name}"
-}
-
 data "azurerm_subnet" "jenkins_subnet" {
   provider             = "azurerm.mgmt"
   name                 = "iaas"
