@@ -68,6 +68,8 @@ variable "subscription" {}
 
 variable "mgmt_subscription_id" {}
 
+variable "aks_infra_subscription_id" {}
+
 variable "common_tags" {
   type = "map"
 }
