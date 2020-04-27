@@ -13,11 +13,22 @@ withInfraPipeline('rd') {
 
     after('checkout') {
         sh 'ls -al'
+        echo '===== app-service-plan.tf ====='
         sh 'cat app-service-plan.tf'
+
+        echo '===== application-insights.tf ====='
         sh 'cat application-insights.tf'
+
+        echo '===== key-vault.tf ====='
         sh 'cat key-vault.tf'
+
+        echo '===== main.tf ====='
         sh 'cat main.tf'
+
+        echo '===== resource-group.tf ====='
         sh 'cat resource-group.tf'
-        sh 'cat storage-account.tf'
+
+        echo '===== app-service-plan.tf ====='
+        sh 'cat app-service-plan.tf'
     }
 }
