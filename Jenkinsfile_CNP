@@ -9,4 +9,15 @@ Environment environment = new Environment(env)
 Subscription subscription = new Subscription(env)
 
 
-withInfraPipeline('rd') {}
+withInfraPipeline('rd') {
+
+    after('checkout') {
+        sh 'ls -al'
+        sh 'cat app-service-plan.tf'
+        sh 'cat application-insights.tf'
+        sh 'cat key-vault.tf'
+        sh 'cat main.tf'
+        sh 'cat resource-group.tf'
+        sh 'cat storage-account.tf'
+    }
+}
