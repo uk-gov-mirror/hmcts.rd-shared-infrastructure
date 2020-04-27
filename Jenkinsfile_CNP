@@ -8,10 +8,9 @@ import uk.gov.hmcts.contino.Subscription
 Environment environment = new Environment(env)
 Subscription subscription = new Subscription(env)
 
-
 withInfraPipeline('rd') {
 
-    after('checkout') {
+    before('Plan rd in aat') {
         sh 'ls -al'
         echo '===== app-service-plan.tf ====='
         sh 'cat app-service-plan.tf'
