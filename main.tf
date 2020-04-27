@@ -1,3 +1,7 @@
+provider "azurerm" {
+  version = "=1.44.0"
+}
+
 locals {
   common_tags = {
     "environment"  = "${var.env}"
@@ -9,5 +13,4 @@ locals {
   tags = "${merge(var.common_tags,
         map("Team Contact", "#referencedata")
         )}"
-
 }
