@@ -1,3 +1,13 @@
+provider "azurerm" {
+  alias           = "aks-infra"
+  subscription_id = "${var.aks_infra_subscription_id}"
+}
+
+provider "azurerm" {
+  alias           = "mgmt"
+  subscription_id = "${var.mgmt_subscription_id}"
+}
+
 # provider "azurerm" {
 #   alias           = "mgmt"
 #   subscription_id = "${var.mgmt_subscription_id}"
