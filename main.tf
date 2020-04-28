@@ -1,7 +1,3 @@
-provider "azurerm" {
-  version = "=1.44.0"
-}
-
 locals {
   common_tags = {
     "environment"  = "${var.env}"
