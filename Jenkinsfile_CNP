@@ -31,7 +31,7 @@ withInfraPipeline('rd') {
         sh 'cat app-service-plan.tf'
     }
 
-    before('buildinfra:aat') {
+    before('buildinfra:rd-aat') {
         sh 'ls -al'
         echo '===== app-service-plan.tf ====='
         sh 'cat app-service-plan.tf'
