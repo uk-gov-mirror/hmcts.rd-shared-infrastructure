@@ -1,7 +1,7 @@
 locals {
   account_name          = "${replace("${var.product}${var.env}", "-", "")}"
-  mgmt_network_name     = "core-infra-vnet-demo"
-  mgmt_network_rg_name  = "core-infra-demo"
+  mgmt_network_name     = "mgmt-infra-sandbox"
+  mgmt_network_rg_name  = "mgmt-infra-sandbox"
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
