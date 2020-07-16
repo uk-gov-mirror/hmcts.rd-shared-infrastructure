@@ -30,3 +30,4 @@ module "rd-profile-sync-exceptions-alert" {
   resourcegroup_name         = "${local.alert_resource_group_name}"
   enabled                    = "${var.enable_alerts}"
 }
+
