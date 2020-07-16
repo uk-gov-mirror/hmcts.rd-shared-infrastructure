@@ -19,7 +19,7 @@ module "rd-profile-sync-exceptions-alert" {
   app_insights_name          = "${var.product}-${var.env}"
   alert_name                 = "${var.product}-${var.component}-exceptions-alert"
   alert_desc                 = "All exceptions within Ref Data Profile Sync"
-  app_insights_query         = "traces | where cloud_RoleName in ("RD Profile SYNC API") | where message startswith 'Sync Batch Job Failed::' | summarize AggregatedValue=count() by bin(timestamp, 5m), cloud_RoleName"
+  app_insights_query         = "traces | where cloud_RoleName in (\"RD Profile SYNC API\") | where message startswith 'Sync Batch Job Failed::' | summarize AggregatedValue=count() by bin(timestamp, 5m), cloud_RoleName"
   custom_email_subject       = "Alert: Ref Data Profile Sync - all exceptions"
   frequency_in_minutes       = 5
   time_window_in_minutes     = 5
