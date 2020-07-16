@@ -3,7 +3,7 @@ locals {
 }
 
 module "rd-action-group" {
-  source                 = "git@github.com:hmcts/cnp-module-action-group"
+  source                 = "git@github.com:hmcts/cnp-module-action-group?ref=master"
   location               = "global"
   env                    = "${var.env}"
   resourcegroup_name     = "${local.alert_resource_group_name}"
@@ -14,7 +14,7 @@ module "rd-action-group" {
 }
 
 module "rd-profile-sync-exceptions-alert" {
-  source                     = "git@github.com:hmcts/cnp-module-metric-alert"
+  source                     = "git@github.com:hmcts/cnp-module-metric-alert?ref=master"
   location                   = "${var.appinsights_location}"
   app_insights_name          = "${var.product}-${var.env}"
   alert_name                 = "${var.product}-${var.component}-exceptions-alert"
