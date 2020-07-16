@@ -23,6 +23,11 @@ data "azurerm_key_vault" "key_vault" {
   resource_group_name = "${azurerm_resource_group.rg.name}"
 }
 
+data "azurerm_key_vault" "rd_support_email_secret" {
+  name      = "${var.product}-support-email"
+  vault_uri = "${module.rd_key_vault.key_vault_uri}"
+}
+
 output "vaultName" {
   value = "${local.key_vault_name}"
 }

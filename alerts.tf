@@ -10,14 +10,14 @@ module "rd-action-group" {
   action_group_name      = "${var.product}-support"
   short_name             = "${var.product}-support"
   email_receiver_name    = "Ref Data Support Mailing List"
-  email_receiver_address = "${data.azurerm_key_vault_secret.rd_support_email_secret.value}"
+  email_receiver_address = "${data.azurerm_key_vault.rd_support_email_secret.value}"
 }
 
 module "rd-profile-sync-exceptions-alert" {
   source                     = "git@github.com:hmcts/cnp-module-metric-alert?ref=master"
   location                   = "${var.appinsights_location}"
   app_insights_name          = "${var.product}-${var.env}"
-  alert_name                 = "${var.product}-${var.component}-exceptions-alert"
+  alert_name                 = "${var.product}-profile-sync-exceptions-alert"
   alert_desc                 = "All exceptions within Ref Data Profile Sync"
   app_insights_query         = "traces | where cloud_RoleName in (\"RD Profile SYNC API\") | where message startswith 'Sync Batch Job Failed::' | summarize AggregatedValue=count() by bin(timestamp, 5m), cloud_RoleName"
   custom_email_subject       = "Alert: Ref Data Profile Sync - all exceptions"
