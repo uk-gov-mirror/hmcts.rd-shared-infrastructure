@@ -25,7 +25,6 @@ data "azurerm_key_vault" "key_vault" {
 
 data "azurerm_key_vault_secret" "rd_support_email_secret" {
   name      = "${var.product}-support-email"
-  resource_group_name = "${azurerm_resource_group.rg.name}"
   key_vault_id = "${data.azurerm_key_vault.key_vault.id}"
 }
 
