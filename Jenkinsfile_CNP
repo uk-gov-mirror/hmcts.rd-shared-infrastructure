@@ -1,5 +1,5 @@
 #!groovy
 //noinspection GroovyUnusedAssignment
-@Library("Infrastructure") _
+@Library("Infrastructure@infra-approvals-docker-agent-fix") _
 
 withInfraPipeline('rd') {}
