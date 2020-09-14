@@ -1,16 +1,7 @@
-provider "azurerm" {
-  alias           = "aks-infra"
-  subscription_id = "${var.aks_infra_subscription_id}"
-}
-
-provider "azurerm" {
-  alias           = "mgmt"
-  subscription_id = "${var.mgmt_subscription_id}"
-}
-
 locals {
-  account_name      = "${replace("${var.product}${var.env}", "-", "")}"
-  mgmt_network_name = "${(var.subscription == "prod" || var.subscription == "nonprod" || var.subscription == "qa")? "mgmt-infra-prod" : "mgmt-infra-sandbox"}"
+  account_name          = "${replace("${var.product}${var.env}", "-", "")}"
+  mgmt_network_name     = "core-cftptl-intsvc-vnet"
+  mgmt_network_rg_name  = "aks-infra-cftptl-intsvc-rg"
 
   // for each client service two containers are created: one named after the service
   // and another one, named {service_name}-rejected, for storing envelopes rejected by bulk-scan
@@ -37,18 +28,18 @@ module "storage_account" {
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
 
-  sa_subnets = ["${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.aks-00.id}", "${data.azurerm_subnet.jenkins-subnet.id}"]
+  sa_subnets = ["${data.azurerm_subnet.aks-00.id}", "${data.azurerm_subnet.aks-01.id}", "${data.azurerm_subnet.jenkins_subnet.id}"]
 }
 
 data "azurerm_virtual_network" "mgmt_vnet" {
   provider            = "azurerm.mgmt"
   name                = "${local.mgmt_network_name}"
-  resource_group_name = "${local.mgmt_network_name}"
+  resource_group_name = "${local.mgmt_network_rg_name}"
 }
 
-data "azurerm_subnet" "jenkins-subnet" {
+data "azurerm_subnet" "jenkins_subnet" {
   provider             = "azurerm.mgmt"
-  name                 = "jenkins-subnet"
+  name                 = "iaas"
   virtual_network_name = "${data.azurerm_virtual_network.mgmt_vnet.name}"
   resource_group_name  = "${data.azurerm_virtual_network.mgmt_vnet.resource_group_name}"
 }
@@ -88,21 +79,21 @@ resource "azurerm_storage_container" "service_rejected_containers" {
 }
 
 resource "azurerm_key_vault_secret" "storage_account_name" {
-  name      = "storage-account-name"
-  value     = "${module.storage_account.storageaccount_name}"
-  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+  name          = "storage-account-name"
+  value         = "${module.storage_account.storageaccount_name}"
+  key_vault_id  = "${module.rd_key_vault.key_vault_id}"
 }
 
 resource "azurerm_key_vault_secret" "storageaccount_id" {
-  name         = "storage-account-id"
-  value        = "${module.storage_account.storageaccount_id}"
-  key_vault_id = "${data.azurerm_key_vault.key_vault.id}"
+  name          = "storage-account-id"
+  value         = "${module.storage_account.storageaccount_id}"
+  key_vault_id  = "${module.rd_key_vault.key_vault_id}"
 }
 
 resource "azurerm_key_vault_secret" "storage_account_primary_key" {
-  name      = "storage-account-primary-key"
-  value     = "${module.storage_account.storageaccount_primary_access_key}"
-  vault_uri = "${data.azurerm_key_vault.key_vault.vault_uri}"
+  name          = "storage-account-primary-key"
+  value         = "${module.storage_account.storageaccount_primary_access_key}"
+  key_vault_id  = "${module.rd_key_vault.key_vault_id}"
 }
 
 output "storage_account_name" {
