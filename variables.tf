@@ -38,7 +38,7 @@ variable "appinsights_location" {
 
 variable "appinsights_application_type" {
   type        = "string"
-  default     = "Web"
+  default     = "web"
   description = "Type of Application Insights (Web/Other)"
 }
 
@@ -58,4 +58,18 @@ variable "destroy_me" {
   type        = "string"
   description = "Here be dragons! In the future if this is set to Yes then automation will delete this resource on a schedule. Please set to No unless you know what you are doing"
   default     = "No"
+}
+
+variable "managed_identity_object_id" {
+  default = ""
+}
+
+variable "subscription" {}
+
+variable "mgmt_subscription_id" {}
+
+variable "aks_infra_subscription_id" {}
+
+variable "common_tags" {
+  type = "map"
 }
