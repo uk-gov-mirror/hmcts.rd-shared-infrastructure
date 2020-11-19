@@ -60,11 +60,6 @@ variable "destroy_me" {
   default     = "No"
 }
 
-variable "managed_identity_object_id" {
-  type    = string
-  default = ""
-}
-
 variable "subscription" {
   type = string
 }
