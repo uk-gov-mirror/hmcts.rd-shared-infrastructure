@@ -4,7 +4,7 @@
 
 withInfraPipeline('rd') {
     // Configure branches to sync with master branch
-    def branchesToSync = ['demo', 'perftest']
+    def branchesToSync = ['demo', 'ithc', 'perftest']
 
     // Sync demo and perftest with master branch
     syncBranchesWithMaster(branchesToSync)
