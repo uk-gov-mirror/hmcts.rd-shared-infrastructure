@@ -32,23 +32,23 @@ module "caseworker-subscription" {
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-conn-str" {
   name         = "caseworker-topic-primary-send-listen-connection-string"
   value        = module.caseworker-topic.primary_send_and_listen_connection_string
-  key_vault_id = rd_key_vault.key_vault_id
+  key_vault_id = module.rd_key_vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-secondary-send-listen-conn-str" {
   name         = "caseworker-topic-secondary-send-listen-connection-string"
   value        = module.caseworker-topic.secondary_send_and_listen_connection_string
-  key_vault_id = rd_key_vault.key_vault_id
+  key_vault_id = module.rd_key_vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-shared-access-key" {
   name         = "caseworker-topic-primary-send-listen-shared-access-key"
   value        = module.caseworker-topic.primary_send_and_listen_shared_access_key
-  key_vault_id = data.azurerm_key_vault.key_vault_id
+  key_vault_id = module.rd_key_vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-secondary-send-listen-shared-access-key" {
   name         = "caseworker-topic-secondary-send-listen-shared-access-key"
   value        = module.caseworker-topic.secondary_send_and_listen_shared_access_key
-  key_vault_id = data.azurerm_key_vault.key_vault_id
+  key_vault_id = module.rd_key_vault.key_vault_id
 }
