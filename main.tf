@@ -7,7 +7,9 @@ locals {
     "managedBy"    = "${var.team_name}"
   }
 
+  /*
   tags = "${merge(var.common_tags,
     map("Team Contact", "#referencedata")
   )}"
+  */
 }
