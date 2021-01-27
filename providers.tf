@@ -1,6 +1,6 @@
-provider "azurerm" {
-  version = "=1.44.0"
-}
+#provider "azurerm" {
+#  version = "=1.44.0"
+#}
 
 # provider "azurerm" {
 #   alias           = "aks-infra"
@@ -11,3 +11,8 @@ provider "azurerm" {
 #   alias           = "mgmt"
 #   subscription_id = "${var.mgmt_subscription_id}"
 # }
+
+provider "azurerm" {
+  version = "=2.30.0"
+  features {}
+}

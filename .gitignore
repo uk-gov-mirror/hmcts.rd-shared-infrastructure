@@ -7,3 +7,4 @@ github-apikey
 .idea/
 *.iml
 .gradle/
+.DS_store
