@@ -25,7 +25,7 @@ module "storage_account" {
   enable_https_traffic_only = true
 
   // Tags
-  common_tags  = "${local.tags}"
+  common_tags  = "${local.common_tags}"
   team_contact = "${var.team_contact}"
   destroy_me   = "${var.destroy_me}"
 
