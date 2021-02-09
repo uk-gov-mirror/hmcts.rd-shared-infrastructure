@@ -1,5 +1,7 @@
 #!groovy
-@Library('Infrastructure@import_sb_modules') _
+@Library('Infrastructure@import_sb_modules')
+
+import uk.gov.hmcts.contino.InfraPipelineDsl
 
 properties([
     parameters([
