@@ -1,7 +1,5 @@
 #!groovy
-@Library('Infrastructure@import_sb_modules')
-
-import uk.gov.hmcts.contino.InfraPipelineDsl
+@Library('Infrastructure@import_sb_modules') _
 
 properties([
     parameters([
@@ -25,6 +23,6 @@ echo "Building Reference Data infrastructure in environment '${params.ENVIRONMEN
 //   }
 // }
 
-withParameterizedInfraPipeline('ccd', params.ENVIRONMENT, 'sandbox') {
-  importServiceBusModules("true")
+withParameterizedInfraPipeline('ccd', params.ENVIRONMENT, 'sandbox', '') {
+  importServiceBusModules(true)
 }
