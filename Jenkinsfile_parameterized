@@ -25,6 +25,6 @@ echo "Building Reference Data infrastructure in environment '${params.ENVIRONMEN
 //   }
 // }
 
-withParameterizedInfraPipeline('ccd', params.ENVIRONMENT, 'sandbox', '') {
+withParameterizedInfraPipeline('rd', params.ENVIRONMENT, 'sandbox', '') {
   // importServiceBusModules(false)
 }
