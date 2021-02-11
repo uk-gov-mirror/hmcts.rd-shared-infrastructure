@@ -6,7 +6,7 @@ locals {
 }
 
 module "servicebus-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=servicebus_tf"
   name                = "${local.servicebus_namespace_name}"
   location            = "${var.location}"
   env                 = "${var.env}"
@@ -15,14 +15,14 @@ module "servicebus-namespace" {
 }
 
 module "caseworker-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=servicebus_topic_tf"
   name                  = "${local.caseworker_topic_name}"
   namespace_name        = "${module.servicebus-namespace.name}"
   resource_group_name   = "${local.resource_group_name}"
 }
 
 module "caseworker-subscription" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=servicebus_subscription_tf"
   name                  = "${local.subscription_name}"
   namespace_name        = "${module.servicebus-namespace.name}"
   topic_name            = "${module.caseworker-topic.name}"

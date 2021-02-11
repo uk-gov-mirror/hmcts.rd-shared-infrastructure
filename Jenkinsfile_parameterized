@@ -1,7 +1,7 @@
 #!groovy
 // @Library('Infrastructure@import_sb_modules') _
 
-@Library('Infrastructure') _
+@Library('Infrastructure@import_sb_modules') _
 
 properties([
     parameters([
@@ -12,19 +12,6 @@ properties([
 
 echo "Building Reference Data infrastructure in environment '${params.ENVIRONMENT}'"
 
-// node {
-//   env.PATH = "$env.PATH:/usr/local/bin"
-
-//   stage('Checkout') {
-//     deleteDir()
-//     checkout scm
-//   }
-
-//   stage('Create shared infrastructure') {
-//     sharedInfrastructurePipeline('rd', params.ENVIRONMENT, 'sandbox')
-//   }
-// }
-
 withParameterizedInfraPipeline('rd', params.ENVIRONMENT, 'sandbox', '') {
-  // importServiceBusModules(false)
+  importServiceBusModules(false)
 }
