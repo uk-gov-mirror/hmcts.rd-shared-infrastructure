@@ -1,7 +1,5 @@
 #!groovy
 //noinspection GroovyUnusedAssignment
-@Library("Infrastructure@import_sb_modules") _
+@Library("Infrastructure") _
 
-withInfraPipeline('rd') {
-    importServiceBusModules("true")
-}
+withInfraPipeline('rd') {}
