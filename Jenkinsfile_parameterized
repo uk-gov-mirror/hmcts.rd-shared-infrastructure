@@ -1,7 +1,7 @@
 #!groovy
 // @Library('Infrastructure@import_sb_modules') _
 
-@Library('Infrastructure@import_sb_modules') _
+@Library('Infrastructure') _
 
 properties([
     parameters([
@@ -13,5 +13,5 @@ properties([
 echo "Building Reference Data infrastructure in environment '${params.ENVIRONMENT}'"
 
 withParameterizedInfraPipeline('rd', params.ENVIRONMENT, 'sandbox', '') {
-  importServiceBusModules('rd-servicebus-sandbox', 'rd-caseworker-topic-sandbox', 'rd-caseworker-subscription-sandbox', 'rd-sandbox')
+  // importServiceBusModules('rd-servicebus-sandbox', 'rd-caseworker-topic-sandbox', 'rd-caseworker-subscription-sandbox', 'rd-sandbox')
 }
