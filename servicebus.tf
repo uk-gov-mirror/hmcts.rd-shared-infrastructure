@@ -2,6 +2,8 @@ locals {
   servicebus_namespace_name       = "${var.product}-servicebus-${var.env}"
   caseworker_topic_name           = "${var.product}-caseworker-topic-${var.env}"
   subscription_name               = "${var.product}-caseworker-subscription-${var.env}"
+  queue_name1                      = "${var.product}-caseworker-queue-1-${var.env}"
+  queue_name2                      = "${var.product}-caseworker-queue-2-${var.env}"
   resource_group_name             = "${azurerm_resource_group.rg.name}"
 }
 
@@ -27,6 +29,20 @@ module "caseworker-subscription" {
   namespace_name        = "${module.servicebus-namespace.name}"
   topic_name            = "${module.caseworker-topic.name}"
   resource_group_name   = "${local.resource_group_name}"
+}
+
+module "caseworker-queue-1" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  name                  = local.queue_name1
+  namespace_name        = module.servicebus-namespace.name
+  resource_group_name   = azurerm_resource_group.rg.name
+}
+
+module "caseworker-queue-2" {
+  source                = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  name                  = local.queue_name2
+  namespace_name        = module.servicebus-namespace.name
+  resource_group_name   = azurerm_resource_group.rg.name
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-conn-str" {
