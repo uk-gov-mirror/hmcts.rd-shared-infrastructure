@@ -8,7 +8,7 @@ locals {
 }
 
 module "servicebus-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=servicebus_tf"
   name                = "${local.servicebus_namespace_name}"
   location            = "${var.location}"
   env                 = "${var.env}"
