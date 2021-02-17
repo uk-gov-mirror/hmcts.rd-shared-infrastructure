@@ -47,18 +47,17 @@ module "caseworker-queue-2" {
 
 module "caseworker-queue-new-1" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=servicebus_queue_tf"
-  name                = local.queue_name2
+  name                = "Test-Queue-1"
   namespace_name      = module.servicebus-namespace.name
   resource_group_name = azurerm_resource_group.rg.name
 }
 
 module "caseworker-queue-new-2" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=servicebus_queue_tf"
-  name                = local.queue_name2
+  name                = "Test-Queue-2"
   namespace_name      = module.servicebus-namespace.name
   resource_group_name = azurerm_resource_group.rg.name
 }
-
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-conn-str" {
   name         = "caseworker-topic-primary-send-listen-connection-string"
