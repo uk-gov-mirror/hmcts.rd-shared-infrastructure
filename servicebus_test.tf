@@ -45,7 +45,7 @@ module "sbtest-queue-1" {
   # source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=servicebus_queue_tf"
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   count               = 3
-  name                = join("-", [local.queue_name_1, "-", count.index])
+  name                = join("-", [local.queue_name_1, count.index])
   namespace_name      = module.sbtest-servicebus-namespace.name
   resource_group_name = local.rg_test
 }
