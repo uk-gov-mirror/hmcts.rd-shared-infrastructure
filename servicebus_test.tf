@@ -24,7 +24,7 @@ module "sbtest-servicebus-namespace" {
 
 module "sbtest-queue" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=servicebus_queue_tf"
-  name                = local.queue_name
+  name                = local.queue_name_2
   namespace_name      = module.sbtest-servicebus-namespace.name
   resource_group_name = local.rg_test
 }
