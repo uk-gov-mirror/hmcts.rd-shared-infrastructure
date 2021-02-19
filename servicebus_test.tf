@@ -14,7 +14,7 @@ resource "azurerm_resource_group" "rg-test" {
 }
 
 module "sbtest-servicebus-namespace" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=servicebus_tf"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
   name                = local.sb_name
   location            = var.location
   env                 = var.env
@@ -23,21 +23,21 @@ module "sbtest-servicebus-namespace" {
 }
 
 module "sbtest-queue" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=servicebus_queue_tf"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
   name                = local.queue_name
   namespace_name      = module.sbtest-servicebus-namespace.name
   resource_group_name = local.rg_test
 }
 
 module "sbtest-topic" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=servicebus_topic_tf"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                = local.topic_name
   namespace_name      = module.sbtest-servicebus-namespace.name
   resource_group_name = local.rg_test
 }
 
 module "sbtest-subscription" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=servicebus_subscription_tf"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                = local.sub_name
   namespace_name      = module.sbtest-servicebus-namespace.name
   topic_name          = module.sbtest-topic.name
