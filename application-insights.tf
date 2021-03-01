@@ -18,6 +18,12 @@ resource "azurerm_application_insights" "appinsights" {
   }
 }
 
+resource "azurerm_key_vault_secret" "applicationinsights-instrumentation-key" {
+  name         = "ApplicationInsightsInstrumentationKey"
+  value        = azurerm_application_insights.appinsights.instrumentation_key
+  key_vault_id = module.rd_key_vault.key_vault_id
+}
+
 output "appInsightsName" {
   value = local.appinsights_name
 }
