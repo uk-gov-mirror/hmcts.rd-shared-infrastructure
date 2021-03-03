@@ -14,5 +14,5 @@ properties([
 echo "Building Reference Data infrastructure in environment '${params.ENVIRONMENT}'"
 
 withParameterizedInfraPipeline('rd', params.ENVIRONMENT, 'sandbox', '') {
-  importServiceBusModules()
+  importTerraformModules()
 }
