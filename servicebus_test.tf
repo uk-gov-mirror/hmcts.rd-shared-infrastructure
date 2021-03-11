@@ -31,6 +31,15 @@ module "sbtest-queue" {
   resource_group_name = local.rg_test
 }
 
+module "sbtest-queue-arr" {
+  # source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=servicebus_queue_tf"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-queue?ref=master"
+  count               = 2
+  name                = join("-", ["queue-arr", count.index])
+  namespace_name      = module.sbtest-servicebus-namespace.name
+  resource_group_name = local.rg_test
+}
+
 module "sbtest-topic" {
   # source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=servicebus_topic_tf"
   source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
