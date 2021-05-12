@@ -15,7 +15,3 @@ module "rd_key_vault" {
   common_tags             = local.common_tags
   create_managed_identity = true
 }
-
-output "vaultName" {
-  value = module.rd_key_vault.key_vault_name
-}
