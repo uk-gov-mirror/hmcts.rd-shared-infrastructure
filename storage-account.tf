@@ -38,6 +38,12 @@ resource "azurerm_storage_container" "service_rejected_containers" {
   count                = length(local.client_service_names)
 }
 
+resource "azurerm_storage_container" "kt_files_container" {
+  name                 = "KT-Files"
+  count                = lower(var.env) == "aat" ? 1 : 0
+  storage_account_name = module.storage_account.storageaccount_name
+}
+
 resource "azurerm_key_vault_secret" "storage_account_name" {
   name          = "storage-account-name"
   value         = module.storage_account.storageaccount_name
@@ -54,13 +60,4 @@ resource "azurerm_key_vault_secret" "storage_account_primary_key" {
   name          = "storage-account-primary-key"
   value         = module.storage_account.storageaccount_primary_access_key
   key_vault_id  = module.rd_key_vault.key_vault_id
-}
-
-output "storage_account_name" {
-  value = module.storage_account.storageaccount_name
-}
-
-output "storage_account_primary_key" {
-  sensitive = true
-  value     = module.storage_account.storageaccount_primary_access_key
 }

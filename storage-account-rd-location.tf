@@ -53,12 +53,3 @@ resource "azurerm_key_vault_secret" "rd_location_storage_account_primary_key" {
   value         = module.storage_account_rd_location.storageaccount_primary_access_key
   key_vault_id  = module.rd_key_vault.key_vault_id
 }
-
-output "rd_location_storage_account_name" {
-  value = module.storage_account_rd_location.storageaccount_name
-}
-
-output "rd_location_storage_account_primary_key" {
-  sensitive = true
-  value     = module.storage_account_rd_location.storageaccount_primary_access_key
-}
