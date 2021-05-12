@@ -39,7 +39,7 @@ resource "azurerm_storage_container" "service_rejected_containers" {
 }
 
 resource "azurerm_storage_container" "kt_files_container" {
-  name                 = "KT-Files"
+  name                 = "kt-files"
   count                = lower(var.env) == "aat" ? 1 : 0
   storage_account_name = module.storage_account.storageaccount_name
 }
