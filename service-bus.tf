@@ -7,7 +7,6 @@ locals {
   judicial_subscription_name                    = join("-", [var.product, "judicial-subscription", var.env])
 
   judicial_topic_functional_test_name           = join("-", [var.product, "judicial-topic-functional-test", var.env])
-  judicial_subscription_functional_test_name    = join("-", [var.product, "judicial-subscription-functional-test", var.env])
 
   resource_group_name           = azurerm_resource_group.rg.name
 }
@@ -68,14 +67,6 @@ module "judicial-topic-functional-test" {
   resource_group_name   = local.resource_group_name
 }
 
-module "judicial-subscription-functional-test" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
-  name                  = local.judicial_subscription_functional_test_name
-  count                 = lower(var.env) == "aat" ? 1 : 0
-  namespace_name        = module.servicebus-namespace.name
-  topic_name            = module.judicial-topic-functional-test.name
-  resource_group_name   = local.resource_group_name
-}
 
 module "am-orm-judicial-test-pr-subscription" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
