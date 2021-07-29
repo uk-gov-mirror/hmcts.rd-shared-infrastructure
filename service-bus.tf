@@ -35,15 +35,6 @@ module "caseworker-subscription" {
   resource_group_name   = local.resource_group_name
 }
 
-module "am-orm-test-pr-subscription" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
-  count                 = lower(var.env) == "aat" ? 1 : 0
-  name                  = "am-orm-preview-functional-test"
-  namespace_name        = module.servicebus-namespace.name
-  topic_name            = module.caseworker-topic.name
-  resource_group_name   = local.resource_group_name
-}
-
 module "judicial-topic" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                  = local.judicial_topic_name
