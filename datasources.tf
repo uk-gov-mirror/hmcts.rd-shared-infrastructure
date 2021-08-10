@@ -1,6 +1,9 @@
 locals {
   mgmt_network_name     = "core-cftptl-intsvc-vnet"
   mgmt_network_rg_name  = "aks-infra-cftptl-intsvc-rg"
+
+  aks_core_vnet = var.env == "aat" || var.env == "perftest" ? join("-", ["cft", var.env, "vnet"]) : join("-", ["core", var.env, "vnet"])
+  aks_core_vnet_rg = var.env == "aat" || var.env == "perftest" ? join("-", ["cft", var.env, "network-rg"]) : join("-", ["aks-infra", var.env, "rg"])
 }
 
 data "azurerm_virtual_network" "mgmt_vnet" {
@@ -18,8 +21,8 @@ data "azurerm_subnet" "jenkins_subnet" {
 
 data "azurerm_virtual_network" "aks_core_vnet" {
   provider            = azurerm.aks-infra
-  name                = join("-", ["core", var.env, "vnet"])
-  resource_group_name = join("-", ["aks-infra", var.env, "rg"])
+  name                = local.aks_core_vnet
+  resource_group_name = local.aks_core_vnet_rg
 }
 
 data "azurerm_subnet" "aks_00" {
