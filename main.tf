@@ -7,7 +7,7 @@ locals {
     "managedBy"    = var.team_name
   }
 
-  tags = merge(tomap(var.common_tags), 
+  tags = merge(var.common_tags, 
     tomap({"Team Contact" = "#referencedata"})
   )
 }
