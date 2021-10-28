@@ -19,7 +19,7 @@ module "storage_account_rd_location" {
   enable_https_traffic_only = true
 
   // Tags
-  common_tags  = var.common_tags
+  common_tags  = local.tags
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
 
