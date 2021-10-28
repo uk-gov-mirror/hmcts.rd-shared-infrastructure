@@ -79,7 +79,7 @@ variable "aks_infra_subscription_id" {
 }
 
 variable "common_tags" {
-  type = map(string)
+  type = tomap(string)
 }
 
 variable "rd_location_storage_repl_type" {
