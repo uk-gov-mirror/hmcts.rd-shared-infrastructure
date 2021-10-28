@@ -32,12 +32,10 @@ provider "azurerm" {
 terraform {
   backend "azurerm" {}
 
-  required_version = ">= 0.13"
-
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 2.25"
+      version = "~> 2.78.0"
     }
 
     azuread = {
