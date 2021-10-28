@@ -78,9 +78,7 @@ variable "aks_infra_subscription_id" {
   type = string
 }
 
-variable "common_tags" {
-  type = tomap(string)
-}
+variable "common_tags" {}
 
 variable "rd_location_storage_repl_type" {
   type    = string
