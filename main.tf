@@ -8,6 +8,6 @@ locals {
   }
 
   tags = merge(var.common_tags, 
-    tomap("Team Contact", "#referencedata")
+    tomap({"Team Contact" ="#referencedata"})
   )
 }
