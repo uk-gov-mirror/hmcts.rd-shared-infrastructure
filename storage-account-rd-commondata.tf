@@ -1,6 +1,6 @@
 locals {
-  product                   = "rdcommondata"
-  rd_cd_account_name        = join("", [local.product, var.env])
+  cd_product                = "rdcommondata"
+  rd_cd_account_name        = join("", [local.cd_product, var.env])
   # container_name            = "lrd-ref-data"
   # container_archive_name    = "lrd-ref-data-archive"
 }
