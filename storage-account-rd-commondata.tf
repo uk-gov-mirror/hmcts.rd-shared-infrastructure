@@ -1,0 +1,55 @@
+locals {
+  cd_product                = "rdcommondata"
+  rd_cd_account_name        = join("", [local.cd_product, var.env])
+  # container_name            = "lrd-ref-data"
+  # container_archive_name    = "lrd-ref-data-archive"
+}
+
+module "storage_account_rd_commondata" {
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  env                      = var.env
+  storage_account_name     = local.rd_cd_account_name
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = var.location
+  account_kind             = "StorageV2"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  access_tier              = "Hot"
+
+  enable_https_traffic_only = true
+
+  // Tags
+  common_tags  = local.tags
+  team_contact = var.team_contact
+  destroy_me   = var.destroy_me
+
+  sa_subnets = [data.azurerm_subnet.aks_00.id, data.azurerm_subnet.aks_01.id, data.azurerm_subnet.jenkins_subnet.id]
+}
+
+# resource "azurerm_storage_container" "service_container" {
+#   name                 = local.container_name
+#   storage_account_name = module.storage_account_rd_location.storageaccount_name
+# }
+
+# resource "azurerm_storage_container" "service_archive_container" {
+#   name                 = local.container_archive_name
+#   storage_account_name = module.storage_account_rd_location.storageaccount_name
+# }
+
+resource "azurerm_key_vault_secret" "rd_cd_storage_account_name" {
+  name          = "rd-commondata-storage-account-name"
+  value         = module.storage_account_rd_commondata.storageaccount_name
+  key_vault_id  = module.rd_key_vault.key_vault_id
+}
+
+resource "azurerm_key_vault_secret" "rd_cd_storageaccount_id" {
+  name          = "rd-commondata-storage-account-id"
+  value         = module.storage_account_rd_commondata.storageaccount_id
+  key_vault_id  = module.rd_key_vault.key_vault_id
+}
+
+resource "azurerm_key_vault_secret" "rd_cd_storage_account_primary_key" {
+  name          = "rd-commondata-storage-account-primary-key"
+  value         = module.storage_account_rd_commondata.storageaccount_primary_access_key
+  key_vault_id  = module.rd_key_vault.key_vault_id
+}
