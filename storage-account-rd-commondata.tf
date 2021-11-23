@@ -1,8 +1,8 @@
 locals {
   cd_product                = "rdcommondata"
   rd_cd_account_name        = join("", [local.cd_product, var.env])
-  container_name            = "rd-common-data"
-  container_archive_name    = "rd-common-data-archive"
+  cd_container_name         = "rd-common-data"
+  cd_container_archive_name = "rd-common-data-archive"
 }
 
 module "storage_account_rd_commondata" {
@@ -27,29 +27,29 @@ module "storage_account_rd_commondata" {
 }
 
 resource "azurerm_storage_container" "common_data_service_container" {
-  name                 = local.container_name
+  name                 = local.cd_container_name
   storage_account_name = module.storage_account_rd_commondata.storageaccount_name
 }
 
 resource "azurerm_storage_container" "common_data_service_archive_container" {
-  name                 = local.container_archive_name
+  name                 = local.cd_container_archive_name
   storage_account_name = module.storage_account_rd_commondata.storageaccount_name
 }
 
 resource "azurerm_key_vault_secret" "rd_cd_storage_account_name" {
-  name          = "rd-commondata-storage-account-name"
-  value         = module.storage_account_rd_commondata.storageaccount_name
-  key_vault_id  = module.rd_key_vault.key_vault_id
+  name         = "rd-commondata-storage-account-name"
+  value        = module.storage_account_rd_commondata.storageaccount_name
+  key_vault_id = module.rd_key_vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "rd_cd_storageaccount_id" {
-  name          = "rd-commondata-storage-account-id"
-  value         = module.storage_account_rd_commondata.storageaccount_id
-  key_vault_id  = module.rd_key_vault.key_vault_id
+  name         = "rd-commondata-storage-account-id"
+  value        = module.storage_account_rd_commondata.storageaccount_id
+  key_vault_id = module.rd_key_vault.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "rd_cd_storage_account_primary_key" {
-  name          = "rd-commondata-storage-account-primary-key"
-  value         = module.storage_account_rd_commondata.storageaccount_primary_access_key
-  key_vault_id  = module.rd_key_vault.key_vault_id
+  name         = "rd-commondata-storage-account-primary-key"
+  value        = module.storage_account_rd_commondata.storageaccount_primary_access_key
+  key_vault_id = module.rd_key_vault.key_vault_id
 }
