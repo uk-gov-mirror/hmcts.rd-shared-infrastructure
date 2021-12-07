@@ -2,8 +2,8 @@ locals {
   mgmt_network_name     = "core-cftptl-intsvc-vnet"
   mgmt_network_rg_name  = "aks-infra-cftptl-intsvc-rg"
 
-  aks_core_vnet = var.env == "aat" || var.env == "ithc" || var.env == "perftest" ? join("-", ["cft", var.env, "vnet"]) : join("-", ["core", var.env, "vnet"])
-  aks_core_vnet_rg = var.env == "aat" || var.env == "ithc" || var.env == "perftest" ? join("-", ["cft", var.env, "network-rg"]) : join("-", ["aks-infra", var.env, "rg"])
+  aks_core_vnet = var.env == "aat" || var.env == "ithc" || var.env == "perftest" || var.env == "prod" ? join("-", ["cft", var.env, "vnet"]) : join("-", ["core", var.env, "vnet"])
+  aks_core_vnet_rg = var.env == "aat" || var.env == "ithc" || var.env == "perftest" || var.env == "prod" ? join("-", ["cft", var.env, "network-rg"]) : join("-", ["aks-infra", var.env, "rg"])
 }
 
 data "azurerm_virtual_network" "mgmt_vnet" {
