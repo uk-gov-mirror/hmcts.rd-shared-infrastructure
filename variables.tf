@@ -84,7 +84,7 @@ variable "common_tags" {
 
 variable "rd_location_storage_repl_type" {
   type    = string
-  default = "LRS"
+  default = "ZRS"
 }
 
 variable "rd_location_storage_access_tier" {
