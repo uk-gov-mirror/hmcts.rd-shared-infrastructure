@@ -12,7 +12,7 @@ locals {
 
   cft_prod_subnets = var.env == "prod" ? [data.azurerm_subnet.prod_aks_00_subnet.id, data.azurerm_subnet.prod_aks_01_subnet.id] : []
 
-  all_valid_subnets = concat(local.valid_subnets, local.cft_prod_vnets)
+  all_valid_subnets = concat(local.valid_subnets, local.cft_prod_subnets)
 }
 
 module "storage_account" {
