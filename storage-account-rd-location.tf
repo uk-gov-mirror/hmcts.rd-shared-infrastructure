@@ -3,17 +3,6 @@ locals {
   rd_location_account_name  = join("", [local.product, var.env])
   container_name            = "lrd-ref-data"
   container_archive_name    = "lrd-ref-data-archive"
-
-  valid_subnets = [
-    data.azurerm_subnet.aks_00.id,
-    data.azurerm_subnet.aks_01.id,
-    data.azurerm_subnet.jenkins_subnet.id,
-  ]
-
-  cft_prod_subnets = var.env == "prod" ? [data.azurerm_subnet.prod_aks_00_subnet.id, data.azurerm_subnet.prod_aks_01_subnet.id] : []
-
-  all_valid_subnets = concat(local.valid_subnets, local.cft_prod_subnets)
-  
 }
 
 module "storage_account_rd_location" {
