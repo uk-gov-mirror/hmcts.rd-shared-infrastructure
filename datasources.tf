@@ -1,6 +1,6 @@
 locals {
-  mgmt_network_name     = "core-cftptl-intsvc-vnet"
-  mgmt_network_rg_name  = "aks-infra-cftptl-intsvc-rg"
+  mgmt_network_name = "cft-ptl-vnet"
+  mgmt_network_rg_name = "cft-ptl-network-rg"
 
   prod_vnet_name           = "cft-prod-vnet"
   prod_vnet_resource_group = "cft-prod-network-rg"
