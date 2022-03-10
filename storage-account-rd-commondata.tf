@@ -3,16 +3,6 @@ locals {
   rd_cd_account_name        = join("", [local.cd_product, var.env])
   cd_container_name         = "rd-common-data"
   cd_container_archive_name = "rd-common-data-archive"
-
-  valid_subnets = [
-    data.azurerm_subnet.aks_00.id,
-    data.azurerm_subnet.aks_01.id,
-    data.azurerm_subnet.jenkins_subnet.id,
-  ]
-
-  cft_prod_subnets = var.env == "prod" ? [data.azurerm_subnet.prod_aks_00_subnet.id, data.azurerm_subnet.prod_aks_01_subnet.id] : []
-
-  all_valid_subnets = concat(local.valid_subnets, local.cft_prod_subnets)
 }
 
 module "storage_account_rd_commondata" {
