@@ -7,6 +7,7 @@ module "servicebus-namespace-premium" {
   name                = local.servicebus_namespace_name_premium
   location            = var.location
   env                 = var.env
+  sku                 = var.sku
   common_tags         = local.common_tags
   resource_group_name = local.resource_group_name
 }

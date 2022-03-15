@@ -91,3 +91,7 @@ variable "rd_location_storage_access_tier" {
   type    = string
   default = "Cool"
 }
+
+variable "sku" {
+  default = "Premium"
+}
