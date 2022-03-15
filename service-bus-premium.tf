@@ -1,13 +1,4 @@
 locals {
-  servicebus_namespace_name                     = join("-", [var.product, "servicebus", var.env])
-  caseworker_topic_name                         = join("-", [var.product, "caseworker-topic", var.env])
-  caseworker_subscription_name                  = join("-", [var.product, "caseworker-subscription", var.env])
-  
-  judicial_topic_name                           = join("-", [var.product, "judicial-topic", var.env])
-  judicial_subscription_name                    = join("-", [var.product, "judicial-subscription", var.env])
-
-  resource_group_name           = azurerm_resource_group.rg.name
-
   servicebus_namespace_name_premium                     = join("-", [var.product, "servicebus", var.env, "premium"])
 }
 
