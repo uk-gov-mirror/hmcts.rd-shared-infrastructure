@@ -33,7 +33,7 @@ module "judicial-topic-premium" {
   resource_group_name   = local.resource_group_name
 }
 
-module "judicial-subscription" {
+module "judicial-subscription-premium" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                  = local.judicial_subscription_name
   namespace_name        = module.servicebus-namespace-premium.name
