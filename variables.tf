@@ -91,3 +91,5 @@ variable "rd_location_storage_access_tier" {
   type    = string
   default = "Cool"
 }
+
+variable "aks_subscription_id" {}
