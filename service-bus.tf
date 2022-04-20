@@ -65,26 +65,22 @@ resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-shared
   name         = "caseworker-topic-primary-send-listen-shared-access-key"
   value        = module.caseworker-topic.primary_send_and_listen_shared_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
-  sensitive    = true
 }
 
 resource "azurerm_key_vault_secret" "judicial-topic-primary-send-listen-shared-access-key" {
   name         = "judicial-topic-primary-send-listen-shared-access-key"
   value        = module.judicial-topic.primary_send_and_listen_shared_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
-  sensitive    = true
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-connection-string" {
   name         = "caseworker-topic-primary-connection-string"
   value        = module.caseworker-topic.primary_send_and_listen_connection_string
   key_vault_id = module.rd_key_vault.key_vault_id
-  sensitive    = true
 }
 
 resource "azurerm_key_vault_secret" "judicial-topic-primary-connection-string" {
   name         = "judicial-topic-primary-connection-string"
   value        = module.judicial-topic.primary_send_and_listen_connection_string
   key_vault_id = module.rd_key_vault.key_vault_id
-  sensitive    = true
 }
