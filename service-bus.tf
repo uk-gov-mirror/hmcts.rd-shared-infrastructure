@@ -19,7 +19,7 @@ module "servicebus-namespace" {
 }
 
 module "caseworker-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=DTSPO-6371_azurerm_upgrade"
   name                  = local.caseworker_topic_name
   namespace_name        = module.servicebus-namespace.name
   resource_group_name   = local.resource_group_name
@@ -34,7 +34,7 @@ module "caseworker-subscription" {
 }
 
 module "judicial-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=DTSPO-6371_azurerm_upgrade"
   name                  = local.judicial_topic_name
   namespace_name        = module.servicebus-namespace.name
   resource_group_name   = local.resource_group_name
