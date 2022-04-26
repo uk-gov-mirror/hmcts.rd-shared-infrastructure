@@ -92,6 +92,11 @@ variable "rd_location_storage_access_tier" {
   default = "Cool"
 }
 
+variable "rd_location_storage_account_kind" {
+  type    = string
+  default = "StorageV2"
+}
+
 variable "rd_commondata_storage_repl_type" {
   type    = string
   default = "ZRS"
@@ -102,6 +107,11 @@ variable "rd_commondata_storage_access_tier" {
   default = "Hot"
 }
 
+variable "rd_commondata_storage_account_kind" {
+  type    = string
+  default = "StorageV2"
+}
+
 variable "rd_storage_repl_type" {
   type    = string
   default = "ZRS"
@@ -110,4 +120,9 @@ variable "rd_storage_repl_type" {
 variable "rd_storage_access_tier" {
   type    = string
   default = "Hot"
+}
+
+variable "rd_storage_account_kind" {
+  type    = string
+  default = "StorageV2"
 }

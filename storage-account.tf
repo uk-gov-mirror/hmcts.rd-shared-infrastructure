@@ -21,7 +21,7 @@ module "storage_account" {
   storage_account_name     = local.account_name
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = var.location
-  account_kind             = "StorageV2"
+  account_kind             = var.rd_storage_account_kind
   account_tier             = "Standard"
   account_replication_type = var.rd_storage_repl_type
   access_tier              = var.rd_storage_access_tier
