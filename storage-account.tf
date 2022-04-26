@@ -12,7 +12,7 @@ locals {
 
   cft_prod_subnets = var.env == "prod" ? [data.azurerm_subnet.prod_aks_00_subnet.id, data.azurerm_subnet.prod_aks_01_subnet.id] : []
 
-  rd_storage_replication_type = var.env == "aat" ? "LRS" : "ZRS"
+  rd_storage_replication_type = var.env == "prod" || var.env == "sandbox" ? "LRS" : "ZRS"
 
   all_valid_subnets = concat(local.valid_subnets, local.cft_prod_subnets)
 }
