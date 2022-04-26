@@ -7,5 +7,5 @@ rd_location_storage_access_tier = "Hot"
 rd_commmondata_storage_repl_type   = "ZRS"
 rd_commondata_storage_access_tier = "Hot"
 
-rd_storage_repl_type   = "ZRS"
+rd_storage_repl_type   = "LRS"
 rd_storage_access_tier = "Hot"
