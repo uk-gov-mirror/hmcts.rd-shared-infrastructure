@@ -91,3 +91,23 @@ variable "rd_location_storage_access_tier" {
   type    = string
   default = "Cool"
 }
+
+variable "rd_commondata_storage_repl_type" {
+  type    = string
+  default = "ZRS"
+}
+
+variable "rd_commondata_storage_access_tier" {
+  type    = string
+  default = "Hot"
+}
+
+variable "rd_storage_repl_type" {
+  type    = string
+  default = "ZRS"
+}
+
+variable "rd_storage_access_tier" {
+  type    = string
+  default = "Hot"
+}

@@ -12,8 +12,6 @@ locals {
 
   cft_prod_subnets = var.env == "prod" ? [data.azurerm_subnet.prod_aks_00_subnet.id, data.azurerm_subnet.prod_aks_01_subnet.id] : []
 
-  rd_storage_replication_type = var.env == "prod" || var.env == "sandbox" ? "LRS" : "ZRS"
-
   all_valid_subnets = concat(local.valid_subnets, local.cft_prod_subnets)
 }
 
@@ -25,8 +23,8 @@ module "storage_account" {
   location                 = var.location
   account_kind             = "StorageV2"
   account_tier             = "Standard"
-  account_replication_type = local.rd_storage_replication_type
-  access_tier              = "Hot"
+  account_replication_type = var.rd_storage_repl_type
+  access_tier              = var.rd_storage_access_tier
 
   //  enable_blob_encryption    = true
   //  enable_file_encryption    = true

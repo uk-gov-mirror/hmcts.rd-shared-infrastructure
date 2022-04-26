@@ -13,8 +13,8 @@ module "storage_account_rd_commondata" {
   location                 = var.location
   account_kind             = "StorageV2"
   account_tier             = "Standard"
-  account_replication_type = "ZRS"
-  access_tier              = "Hot"
+  account_replication_type = var.rd_commondata_storage_repl_type
+  access_tier              = var.rd_commondata_storage_access_tier
 
   enable_https_traffic_only = true
 
