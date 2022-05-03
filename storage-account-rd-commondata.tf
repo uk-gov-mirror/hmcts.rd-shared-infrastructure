@@ -11,10 +11,10 @@ module "storage_account_rd_commondata" {
   storage_account_name     = local.rd_cd_account_name
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = var.location
-  account_kind             = "StorageV2"
+  account_kind             = var.rd_commondata_storage_account_kind
   account_tier             = "Standard"
-  account_replication_type = "LRS"
-  access_tier              = "Hot"
+  account_replication_type = var.rd_commondata_storage_repl_type
+  access_tier              = var.rd_commondata_storage_access_tier
 
   enable_https_traffic_only = true
 
