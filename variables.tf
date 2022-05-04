@@ -92,6 +92,8 @@ variable "rd_location_storage_access_tier" {
   default = "Cool"
 }
 
+variable "aks_subscription_id" {}
+
 variable "rd_location_storage_account_kind" {
   type    = string
   default = "StorageV2"
