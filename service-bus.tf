@@ -23,14 +23,14 @@ module "servicebus-namespace" {
 }
 
 module "caseworker-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=DTSPO-6371_azurerm_upgrade"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                  = local.caseworker_topic_name
   namespace_name        = module.servicebus-namespace.name
   resource_group_name   = local.resource_group_name
 }
 
 module "caseworker-subscription" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-6371_azurerm_upgrade"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                  = local.caseworker_subscription_name
   namespace_name        = module.servicebus-namespace.name
   topic_name            = module.caseworker-topic.name
@@ -38,14 +38,14 @@ module "caseworker-subscription" {
 }
 
 module "judicial-topic" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=DTSPO-6371_azurerm_upgrade"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                  = local.judicial_topic_name
   namespace_name        = module.servicebus-namespace.name
   resource_group_name   = local.resource_group_name
 }
 
 module "judicial-subscription" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-6371_azurerm_upgrade"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                  = local.judicial_subscription_name
   namespace_name        = module.servicebus-namespace.name
   topic_name            = module.judicial-topic.name
@@ -53,7 +53,7 @@ module "judicial-subscription" {
 }
 
 module "am-orm-judicial-test-pr-subscription" {
-  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-6371_azurerm_upgrade"
+  source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   count                 = lower(var.env) == "aat" ? 1 : 0
   name                  = "am-orm-judicial-preview-functional-test"
   namespace_name        = module.servicebus-namespace.name
