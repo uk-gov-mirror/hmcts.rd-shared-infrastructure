@@ -5,7 +5,7 @@ locals {
   prod_vnet_name           = "cft-prod-vnet"
   prod_vnet_resource_group = "cft-prod-network-rg"
 
-  aks_core_vnet = var.env == "aat" || var.env == "ithc" || var.env == "perftest" || var.env == "demo" ? join("-", ["cft", var.env, "vnet"]) : join("-", ["core", var.env, "vnet"])
+  aks_core_vnet = "cft-${var.env}-vnet"
   aks_core_vnet_rg = "cft-${var.env}-network-rg"
 }
 
