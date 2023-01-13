@@ -61,7 +61,7 @@ module "judicial-topic" {
 module "judicial-subscription" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                  = local.judicial_subscription_name
-  namespace_name        = module.judicial_servicebus_namespace_name.name
+  namespace_name        = module.servicebus_namespace_name.name
   topic_name            = module.judicial-topic.name
   resource_group_name   = local.resource_group_name
 }
@@ -70,7 +70,7 @@ module "am-orm-judicial-test-pr-subscription" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   count                 = lower(var.env) == "aat" ? 1 : 0
   name                  = "am-orm-judicial-preview-functional-test"
-  namespace_name        = module.judicial_servicebus_namespace_name.name
+  namespace_name        = module.servicebus_namespace_name.name
   topic_name            = module.judicial-topic.name
   resource_group_name   = local.resource_group_name
 }
