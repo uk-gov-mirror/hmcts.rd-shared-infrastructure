@@ -3,6 +3,7 @@ locals {
   caseworker_topic_name                         = join("-", [var.product, "caseworker-topic", var.env])
   caseworker_subscription_name                  = join("-", [var.product, "caseworker-subscription", var.env])
 
+  judicial_servicebus_namespace_name            = join("-", [var.product, "servicebus", var.env])
   judicial_topic_name                           = join("-", [var.product, "judicial-topic", var.env])
   judicial_subscription_name                    = join("-", [var.product, "judicial-subscription", var.env])
 
