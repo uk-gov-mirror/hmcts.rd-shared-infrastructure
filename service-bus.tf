@@ -23,19 +23,6 @@ module "servicebus-namespace" {
   resource_group_name = local.resource_group_name
 }
 
-module "judicial_servicebus_namespace_name" {
-  providers = {
-    azurerm.private_endpoint = azurerm.private_endpoint
-  }
-
-  source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
-  name                = local.servicebus_namespace_name
-  location            = var.location
-  env                 = var.env
-  common_tags         = local.common_tags
-  resource_group_name = local.resource_group_name
-}
-
 module "caseworker-topic" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                  = local.caseworker_topic_name
