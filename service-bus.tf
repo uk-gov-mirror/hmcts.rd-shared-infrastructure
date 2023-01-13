@@ -3,7 +3,7 @@ locals {
   caseworker_topic_name                         = join("-", [var.product, "caseworker-topic", var.env])
   caseworker_subscription_name                  = join("-", [var.product, "caseworker-subscription", var.env])
 
-  judicial_servicebus_namespace_name            = join("-", [var.product, "servicebus", var.env])
+  judicial_servicebus_namespace_name            = join("-", [var.product, "judicial-servicebus", var.env])
   judicial_topic_name                           = join("-", [var.product, "judicial-topic", var.env])
   judicial_subscription_name                    = join("-", [var.product, "judicial-subscription", var.env])
 
@@ -54,14 +54,14 @@ module "caseworker-subscription" {
 module "judicial-topic" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                  = local.judicial_topic_name
-  namespace_name        = module.servicebus-namespace.name
+  namespace_name        = module.judicial_servicebus_namespace_name.name
   resource_group_name   = local.resource_group_name
 }
 
 module "judicial-subscription" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   name                  = local.judicial_subscription_name
-  namespace_name        = module.servicebus-namespace.name
+  namespace_name        = module.judicial_servicebus_namespace_name.name
   topic_name            = module.judicial-topic.name
   resource_group_name   = local.resource_group_name
 }
@@ -70,7 +70,7 @@ module "am-orm-judicial-test-pr-subscription" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
   count                 = lower(var.env) == "aat" ? 1 : 0
   name                  = "am-orm-judicial-preview-functional-test"
-  namespace_name        = module.servicebus-namespace.name
+  namespace_name        = module.judicial_servicebus_namespace_name.name
   topic_name            = module.judicial-topic.name
   resource_group_name   = local.resource_group_name
 }
