@@ -29,7 +29,7 @@ module "judicial_servicebus_namespace_name" {
   }
 
   source              = "git@github.com:hmcts/terraform-module-servicebus-namespace?ref=master"
-  name                = local.judicial_servicebus_namespace_name
+  name                = local.servicebus_namespace_name
   location            = var.location
   env                 = var.env
   common_tags         = local.common_tags
