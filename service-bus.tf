@@ -54,7 +54,7 @@ module "caseworker-subscription" {
 module "judicial-topic" {
   source                = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=master"
   name                  = local.judicial_topic_name
-  namespace_name        = module.judicial_servicebus_namespace_name.name
+  namespace_name        = module.servicebus_namespace_name.name
   resource_group_name   = local.resource_group_name
 }
 
