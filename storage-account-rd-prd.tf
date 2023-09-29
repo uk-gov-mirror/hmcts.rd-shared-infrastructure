@@ -1,14 +1,14 @@
 locals {
-  cd_product                = "rdprofessional"
-  rd_cd_account_name        = join("", [local.cd_product, var.env])
-  cd_container_name         = "rd-prd-data"
-  cd_container_archive_name = "rd-prd-data-archive"
+  prd_product                = "rdprofessional"
+  rd_prd_account_name        = join("", [local.cd_product, var.env])
+  prd_container_name         = "rd-prd-data"
+  prd_container_archive_name = "rd-prd-data-archive"
 }
 
 module "storage_account_rd_professional" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
   env                      = var.env
-  storage_account_name     = local.rd_cd_account_name
+  storage_account_name     = local.rd_prd_account_name
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = var.location
   account_kind             = var.rd_professional_storage_account_kind
@@ -27,28 +27,28 @@ module "storage_account_rd_professional" {
 }
 
 resource "azurerm_storage_container" "professional_data_service_container" {
-  name                 = local.cd_container_name
+  name                 = local.prd_container_name
   storage_account_name = module.storage_account_rd_professional.storageaccount_name
 }
 
 resource "azurerm_storage_container" "professional_data_service_archive_container" {
-  name                 = local.cd_container_archive_name
+  name                 = local.prd_container_archive_name
   storage_account_name = module.storage_account_rd_professional.storageaccount_name
 }
 
-resource "azurerm_key_vault_secret" "rd_cd_storage_account_name" {
+resource "azurerm_key_vault_secret" "rd_prd_storage_account_name" {
   name         = "rd-prd-storage-account-name"
   value        = module.storage_account_rd_professional.storageaccount_name
   key_vault_id = module.rd_key_vault.key_vault_id
 }
 
-resource "azurerm_key_vault_secret" "rd_cd_storageaccount_id" {
+resource "azurerm_key_vault_secret" "rd_prd_storageaccount_id" {
   name         = "rd-prd-storage-account-id"
   value        = module.storage_account_rd_professional.storageaccount_id
   key_vault_id = module.rd_key_vault.key_vault_id
 }
 
-resource "azurerm_key_vault_secret" "rd_cd_storage_account_primary_key" {
+resource "azurerm_key_vault_secret" "rd_prd_storage_account_primary_key" {
   name         = "rd-prd-storage-account-primary-key"
   value        = module.storage_account_rd_professional.storageaccount_primary_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
