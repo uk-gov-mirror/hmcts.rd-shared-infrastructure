@@ -31,11 +31,6 @@ resource "azurerm_storage_container" "professional_data_service_container" {
   storage_account_name = module.storage_account_rd_professional.storageaccount_name
 }
 
-resource "azurerm_storage_container" "professional_data_service_archive_container" {
-  name                 = local.prd_container_archive_name
-  storage_account_name = module.storage_account_rd_professional.storageaccount_name
-}
-
 resource "azurerm_key_vault_secret" "rd_prd_storage_account_name" {
   name         = "rd-prd-storage-account-name"
   value        = module.storage_account_rd_professional.storageaccount_name
