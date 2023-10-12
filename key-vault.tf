@@ -14,4 +14,5 @@ module "rd_key_vault" {
   product                 = var.product
   common_tags             = local.common_tags
   create_managed_identity = true
+  additional_managed_identities_access = var.additional_managed_identities_access
 }
