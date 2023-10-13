@@ -143,3 +143,9 @@ variable "rd_storage_account_kind" {
   type    = string
   default = "StorageV2"
 }
+
+variable "additional_managed_identities_access" {
+  type        = list(string)
+  description = "The name of your application"
+  default     = []
+}
