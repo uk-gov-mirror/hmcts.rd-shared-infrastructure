@@ -1,6 +1,6 @@
 locals {
   prd_product                = "rdprofessional"
-  rd_prd_account_name        = join("", [local.cd_product, var.env])
+  rd_prd_account_name        = join("", [local.prd_product, var.env])
   prd_container_name         = "rd-prd-data"
   prd_container_archive_name = "rd-prd-data-archive"
 }
