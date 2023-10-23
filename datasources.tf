@@ -75,3 +75,16 @@ data "azurerm_subnet" "rdo_sftp_private" {
   virtual_network_name  = data.azurerm_virtual_network.rdo_sftp_vnet.name
   resource_group_name   = data.azurerm_virtual_network.rdo_sftp_vnet.resource_group_name
 }
+
+data "azurerm_virtual_network" "bau_bais_prod_vnet" {
+  provider            = azurerm.sds_prod
+  name                = "bau-bais_prod_network"
+  resource_group_name = "bau-bais_prod_network_rg"
+}
+
+data "azurerm_subnet" "bau_bais_private_prod" {
+  provider            = azurerm.sds_prod
+  name                  = "bau-bais_private_prod"
+  virtual_network_name  = data.azurerm_virtual_network.bau_bais_prod_vnet.name
+  resource_group_name   = data.azurerm_virtual_network.bau_bais_prod_vnet.resource_group_name
+}
