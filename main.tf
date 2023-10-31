@@ -1,6 +1,6 @@
 locals {
   common_tags = {
-    "environment"  = var.env
+    "environment"  = var.tag_environment
     "Team Name"    = var.team_name
     "Team Contact" = var.team_contact
     "Destroy Me"   = var.destroy_me
