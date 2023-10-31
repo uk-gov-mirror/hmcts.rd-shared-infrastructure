@@ -18,7 +18,7 @@ module "servicebus-namespace" {
   name                = local.servicebus_namespace_name
   location            = var.location
   env                 = var.env
-  common_tags         = local.common_tags
+  common_tags         = local.tags_with_env
   resource_group_name = local.resource_group_name
 }
 
