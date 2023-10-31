@@ -10,7 +10,7 @@ module "rd_key_vault" {
   tenant_id               = var.tenant_id
   object_id               = var.jenkins_AAD_objectId
   product_group_object_id = var.rd_product_group_object_id
-  env                     = var.env
+  env                     = var.tag_environment
   product                 = var.product
   common_tags             = local.common_tags
   create_managed_identity = true
