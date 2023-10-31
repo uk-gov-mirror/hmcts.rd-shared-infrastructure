@@ -13,6 +13,8 @@ locals {
     "environment"  = var.env
   }
 
+  tags_kv = merge(local.common_tags, var.common_tags)
+
   tags_with_env = merge(local.common_tags, local.env_tag)
 
   tags = merge(var.common_tags, {"Team Contact" = "#referencedata"})
