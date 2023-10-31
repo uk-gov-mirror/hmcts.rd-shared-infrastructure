@@ -32,7 +32,7 @@ variable "rd_product_group_object_id" {
 // as of now, UK South is unavailable for Application Insights
 variable "appinsights_location" {
   type        = string
-  default     = "UK South"
+  default     = "West Europe"
   description = "Location for Application Insights"
 }
 
