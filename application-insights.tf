@@ -4,10 +4,10 @@ locals {
 
 resource "azurerm_application_insights" "appinsights" {
   name                = local.appinsights_name
-  location            = var.location
+  location            = var.appinsights_location
   resource_group_name = azurerm_resource_group.rg.name
   application_type    = var.appinsights_application_type
-  tags                = local.tags
+  tags                = local.common_tags
 
   lifecycle {
     ignore_changes = [
