@@ -12,7 +12,7 @@ module "rd_key_vault" {
   product_group_object_id = var.rd_product_group_object_id
   env                     = var.env
   product                 = var.product
-  common_tags             = local.tags_kv
+  common_tags             = local.tags
   create_managed_identity = true
   additional_managed_identities_access = var.additional_managed_identities_access
 }
