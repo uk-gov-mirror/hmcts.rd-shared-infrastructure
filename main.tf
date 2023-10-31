@@ -1,5 +1,5 @@
 locals {
-  common_tags = {
+  tags_kv = merge(var.common_tags, tomap({
     "Team Name"    = var.team_name
     "Team Contact" = var.team_contact
     "Destroy Me"   = var.destroy_me
@@ -7,13 +7,16 @@ locals {
     "application"  = "referencedata"
     "builtFrom"    = "https://github.com/hmcts/rd-shared-infrastructure"
     "businessArea" = "CFT"
-  }
+  }))
 
-  env_tag = {
+  tags = merge(var.common_tags, tomap({
     "environment"  = var.env
-  }
-
-  tags_with_env = merge(local.common_tags, local.env_tag)
-
-  tags = merge(var.common_tags, {"Team Contact" = "#referencedata"})
+    "Team Name"    = var.team_name
+    "Team Contact" = var.team_contact
+    "Destroy Me"   = var.destroy_me
+    "managedBy"    = var.team_name
+    "application"  = "referencedata"
+    "builtFrom"    = "https://github.com/hmcts/rd-shared-infrastructure"
+    "businessArea" = "CFT"
+  }))
 }
