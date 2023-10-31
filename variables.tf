@@ -9,6 +9,11 @@ variable "env" {
   description = "The deployment environment (sandbox, aat, prod etc..)"
 }
 
+variable "tag_environment" {
+  type        = string
+  description = "The deployment environment assigned to keyvault tags (sandbox, aat, prod etc..)"
+}
+
 variable "location" {
   type    = string
   default = "UK South"
