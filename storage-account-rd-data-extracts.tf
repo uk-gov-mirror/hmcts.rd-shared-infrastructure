@@ -1,7 +1,7 @@
 locals {
-  product                       = "rddataextract"
-  rd_data_extract_account_name  = join("", [local.product, var.env])
-  container_name                = "rd-data-extract"
+  rd_data_extract_product         = "rddataextract"
+  rd_data_extract_account_name    = join("", [local.rd_data_extract_product, var.env])
+  rd_data_extract_container_name  = "rd-data-extract"
 }
 
 module "storage_account_rd_data_extract" {
@@ -24,7 +24,7 @@ module "storage_account_rd_data_extract" {
 }
 
 resource "azurerm_storage_container" "data_extract_service_container" {
-  name                 = local.container_name
+  name                 = local.rd_data_extract_container_name
   storage_account_name = module.storage_account_rd_data_extract.storage_account_name
 }
 
