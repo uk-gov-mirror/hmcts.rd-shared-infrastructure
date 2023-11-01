@@ -25,7 +25,7 @@ module "storage_account_rd_data_extract" {
 
 resource "azurerm_storage_container" "data_extract_service_container" {
   name                 = local.rd_data_extract_container_name
-  storage_account_name = module.storage_account_rd_data_extract.storage_account_name
+  storage_account_name = module.storage_account_rd_data_extract.storageaccount_name
 }
 
 resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_name" {
