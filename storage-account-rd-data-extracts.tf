@@ -22,7 +22,9 @@ module "storage_account_rd_data_extract" {
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
 
-  public_network_access_enabled = true
+  network_rules {
+    public_network_access_enabled = true
+  }
 }
 
 resource "azurerm_storage_container" "data_extract_service_container" {
