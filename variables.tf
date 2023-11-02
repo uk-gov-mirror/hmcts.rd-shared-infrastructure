@@ -129,21 +129,6 @@ variable "rd_professional_storage_account_kind" {
   default = "StorageV2"
 }
 
-variable "rd_data_extract_storage_repl_type" {
-  type    = string
-  default = "ZRS"
-}
-
-variable "rd_data_extract_storage_access_tier" {
-  type    = string
-  default = "Hot"
-}
-
-variable "rd_data_extract_storage_account_kind" {
-  type    = string
-  default = "StorageV2"
-}
-
 variable "rd_storage_repl_type" {
   type    = string
   default = "ZRS"
