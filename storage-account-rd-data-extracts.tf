@@ -21,6 +21,8 @@ module "storage_account_rd_data_extract" {
   common_tags  = local.tags
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
+
+  allow_nested_items_to_be_public = true
 }
 
 resource "azurerm_storage_container" "data_extract_service_container" {
