@@ -36,7 +36,7 @@ resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_name" {
 
 resource "azurerm_key_vault_secret" "rd_data_extract_storageaccount_id" {
   name         = "rd-data-extract-storage-account-id"
-  value        = module.storage_account_rd_commondata.storageaccount_id
+  value        = module.storage_account_rd_data_extract.storageaccount_id
   key_vault_id = module.rd_key_vault.key_vault_id
 }
 
