@@ -21,10 +21,8 @@ module "storage_account_rd_data_extract" {
   common_tags  = local.tags
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
+  default_action = "allow"
 
-  network_rules {
-    default_action = "allow"
-  }
 }
 
 resource "azurerm_storage_container" "data_extract_service_container" {
