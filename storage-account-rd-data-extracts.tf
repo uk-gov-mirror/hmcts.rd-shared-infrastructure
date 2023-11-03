@@ -22,8 +22,9 @@ module "storage_account_rd_data_extract" {
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
 
-  allow_nested_items_to_be_public = true
-  sa_subnets = local.all_valid_subnets
+  network_rules {
+    default_action = "allow"
+  }
 }
 
 resource "azurerm_storage_container" "data_extract_service_container" {
