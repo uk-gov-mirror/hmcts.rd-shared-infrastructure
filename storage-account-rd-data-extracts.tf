@@ -21,7 +21,7 @@ module "storage_account_rd_data_extract" {
   common_tags  = local.tags
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
-  default_action = "allow"
+  default_action = "Allow"
 
 }
 
