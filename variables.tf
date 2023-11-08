@@ -164,3 +164,14 @@ variable "additional_managed_identities_access" {
   description = "The name of your application"
   default     = []
 }
+
+variable "role_assignments" {
+  type        = list(string)
+  description = "(Optional) List of roles to assign to the provided Managed Identity, scoped to this storage account."
+  default     = [
+    "Storage Account Delegator",
+    "Storage Blob Delegator",
+    "Storage Blob Data Contributor",
+    "Storage Blob Data Reader"
+  ]
+}
