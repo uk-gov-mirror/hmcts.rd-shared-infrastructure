@@ -19,12 +19,12 @@ data "azurerm_client_config" "this" {}
 data "azurerm_subscription" "primary" {
 }
 
-#data "azurerm_role_definition" "role_name" {
-#  for_each = pim_roles
-#
-#  name  = each.key
-#  scope = data.azurerm_subscription.primary.id
-#}
+data "azurerm_role_definition" "role_name" {
+  for_each = pim_roles
+
+  name  = each.key
+  scope = data.azurerm_subscription.primary.id
+}
 
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
@@ -39,7 +39,7 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  pim_roles = var.env != prod ? {} : {
+  pim_roles = {
     "Storage Account Delegator" = {
       principal_id = data.azuread_group.sc_group.id
     }
