@@ -7,10 +7,11 @@ locals {
     "Storage Account Delegator",
     "Storage Blob Delegator",
   ]
+}
 
-  role_assignments = [
-    for role in var.role_assignments : role if contains(local.allowed_roles, role)
-  ]
+data "azuread_group" "sc_group" {
+  display_name     = "DTS Ref Data SC"
+  security_enabled = true
 }
 
 module "storage_account_rd_data_extract" {
@@ -25,6 +26,8 @@ module "storage_account_rd_data_extract" {
   access_tier              = var.rd_data_extract_storage_access_tier
 
   enable_https_traffic_only = true
+
+  pim_roles = var.env != prod ? {} : var.pim_roles
 
   // Tags
   common_tags  = local.tags
@@ -54,11 +57,4 @@ resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_primary_key
   name         = "rd-data-extract-storage-account-primary-key"
   value        = module.storage_account_rd_data_extract.storageaccount_primary_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
-}
-
-resource "azurerm_role_assignment" "storage-account-role-assignment" {
-  for_each             = toset(local.role_assignments)
-  scope                = module.storage_account_rd_data_extract.storageaccount_id
-  role_definition_name = each.value
-  principal_id         = var.rd_product_group_object_id
 }
