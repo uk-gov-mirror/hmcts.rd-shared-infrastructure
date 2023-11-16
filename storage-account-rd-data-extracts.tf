@@ -10,7 +10,7 @@ locals {
 }
 
 data "azuread_group" "sc_group" {
-  display_name     = "DTS Ref Data SC"
+  display_name     = "DTS Ref Data SC (env:production)"
   security_enabled = true
 }
 
