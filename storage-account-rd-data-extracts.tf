@@ -1,14 +1,13 @@
 locals {
-  rd_data_extract_product         = "rddataextract"
-  rd_data_extract_account_name    = join("", [local.rd_data_extract_product, var.env])
-  rd_data_extract_container_name  = "rd-data-extract"
+  rd_data_extract_product        = "rddataextract"
+  rd_data_extract_account_name   = join("", [local.rd_data_extract_product, var.env])
+  rd_data_extract_container_name = "rd-data-extract"
 
   allowed_roles = [
     "Storage Account Delegator",
     "Storage Blob Delegator",
   ]
 
-  pim_roles = { for role, value in var.pim_roles : role => value if contains(local.allowed_roles, role) }
 }
 
 data "azuread_group" "sc_group" {
