@@ -7,8 +7,6 @@ locals {
     "Storage Account Delegator",
     "Storage Blob Delegator",
   ]
-
-#  pim_roles = { for role, value in var.pim_roles : role => value if contains(local.allowed_roles, role) }
 }
 
 data "azuread_group" "sc_group" {
@@ -16,15 +14,17 @@ data "azuread_group" "sc_group" {
   security_enabled = true
 }
 
+data "azurerm_client_config" "this" {}
+
 data "azurerm_subscription" "primary" {
 }
 
-data "azurerm_role_definition" "role_name" {
-  for_each = pim_roles
-
-  name  = each.key
-  scope = data.azurerm_subscription.primary.id
-}
+#data "azurerm_role_definition" "role_name" {
+#  for_each = pim_roles
+#
+#  name  = each.key
+#  scope = data.azurerm_subscription.primary.id
+#}
 
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
