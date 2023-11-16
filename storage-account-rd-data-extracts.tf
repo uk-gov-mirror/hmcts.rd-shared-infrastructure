@@ -8,7 +8,7 @@ locals {
     "Storage Blob Delegator",
   ]
 
-  pim_roles = { for role, value in var.pim_roles : role => value if contains(local.allowed_roles, role) }
+#  pim_roles = { for role, value in var.pim_roles : role => value if contains(local.allowed_roles, role) }
 }
 
 data "azuread_group" "sc_group" {
@@ -20,7 +20,7 @@ data "azurerm_subscription" "primary" {
 }
 
 data "azurerm_role_definition" "role_name" {
-  for_each = local.pim_roles
+  for_each = pim_roles
 
   name  = each.key
   scope = data.azurerm_subscription.primary.id
@@ -39,7 +39,14 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  pim_roles = var.env != prod ? {} : local.pim_roles
+  pim_roles = var.env != prod ? {} : {
+    "Storage Account Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+  }
 
   // Tags
   common_tags  = local.tags

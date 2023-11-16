@@ -176,17 +176,17 @@ variable "role_assignments" {
   ]
 }
 
-variable "pim_roles" {
-  type = map(object({
-    principal_id = string
-  }))
-  description = "{ 'Role name' = { principal_id = 'principal_id' } }, only certain roles are supported"
-  default     = {
-    "Storage Account Delegator" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Delegator" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-  }
-}
+#variable "pim_roles" {
+#  type = map(object({
+#    principal_id = string
+#  }))
+#  description = "{ 'Role name' = { principal_id = 'principal_id' } }, only certain roles are supported"
+#  default     = {
+#    "Storage Account Delegator" = {
+#      principal_id = data.azuread_group.sc_group.id
+#    }
+#    "Storage Blob Delegator" = {
+#      principal_id = data.azuread_group.sc_group.id
+#    }
+#  }
+#}
