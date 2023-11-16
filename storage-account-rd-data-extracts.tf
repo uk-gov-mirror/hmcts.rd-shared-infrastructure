@@ -19,12 +19,12 @@ data "azurerm_client_config" "this" {}
 data "azurerm_subscription" "primary" {
 }
 
-data "azurerm_role_definition" "role_name" {
-  for_each = pim_roles
-
-  name  = each.key
-  scope = data.azurerm_subscription.primary.id
-}
+#data "azurerm_role_definition" "role_name" {
+#  for_each = pim_roles
+#
+#  name  = each.key
+#  scope = data.azurerm_subscription.primary.id
+#}
 
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
