@@ -39,7 +39,14 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  pim_roles = var.env != prod ? {} : local.pim_roles
+  pim_roles = var.env != prod ? {} : {
+    "Storage Account Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+  }
 
   // Tags
   common_tags  = local.tags
