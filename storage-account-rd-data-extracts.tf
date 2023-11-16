@@ -7,11 +7,23 @@ locals {
     "Storage Account Delegator",
     "Storage Blob Delegator",
   ]
+
+  pim_roles = { for role, value in var.pim_roles : role => value if contains(local.allowed_roles, role) }
 }
 
 data "azuread_group" "sc_group" {
   display_name     = "DTS Ref Data SC"
   security_enabled = true
+}
+
+data "azurerm_subscription" "primary" {
+}
+
+data "azurerm_role_definition" "role_name" {
+  for_each = local.pim_roles
+
+  name  = each.key
+  scope = data.azurerm_subscription.primary.id
 }
 
 module "storage_account_rd_data_extract" {
@@ -27,14 +39,7 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  pim_roles = var.env != prod ? {} : {
-    "Storage Account Delegator" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Delegator" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-  }
+  pim_roles = var.env != prod ? {} : local.pim_roles
 
   // Tags
   common_tags  = local.tags
@@ -64,4 +69,12 @@ resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_primary_key
   name         = "rd-data-extract-storage-account-primary-key"
   value        = module.storage_account_rd_data_extract.storageaccount_primary_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
+}
+
+resource "azurerm_pim_eligible_role_assignment" "this" {
+  for_each = local.pim_roles
+
+  scope              = module.storage_account_rd_data_extract.rd_data_extract_storageaccount_id
+  role_definition_id = data.azurerm_role_definition.role_name[each.key].id
+  principal_id       = each.value.principal_id
 }
