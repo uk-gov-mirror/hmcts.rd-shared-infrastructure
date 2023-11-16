@@ -39,7 +39,7 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  //pim_roles = var.env != prod ? {} : local.pim_roles
+  pim_roles = var.env != prod ? {} : local.pim_roles
 
   // Tags
   common_tags  = local.tags
@@ -71,10 +71,10 @@ resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_primary_key
   key_vault_id = module.rd_key_vault.key_vault_id
 }
 
-resource "azurerm_pim_eligible_role_assignment" "this" {
-  for_each = local.pim_roles
-
-  scope              = module.storage_account_rd_data_extract.rd_data_extract_storageaccount_id
-  role_definition_id = data.azurerm_role_definition.role_name[each.key].id
-  principal_id       = each.value.principal_id
-}
+#resource "azurerm_pim_eligible_role_assignment" "this" {
+#  for_each = local.pim_roles
+#
+#  scope              = module.storage_account_rd_data_extract.rd_data_extract_storageaccount_id
+#  role_definition_id = data.azurerm_role_definition.role_name[each.key].id
+#  principal_id       = each.value.principal_id
+#}
