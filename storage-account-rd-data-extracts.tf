@@ -19,13 +19,6 @@ data "azurerm_client_config" "this" {}
 data "azurerm_subscription" "primary" {
 }
 
-#data "azurerm_role_definition" "role_name" {
-#  for_each = pim_roles
-#
-#  name  = each.key
-#  scope = data.azurerm_subscription.primary.id
-#}
-
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
   env                      = var.env
@@ -77,11 +70,3 @@ resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_primary_key
   value        = module.storage_account_rd_data_extract.storageaccount_primary_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
 }
-
-#resource "azurerm_pim_eligible_role_assignment" "this" {
-#  for_each = local.pim_roles
-#
-#  scope              = module.storage_account_rd_data_extract.rd_data_extract_storageaccount_id
-#  role_definition_id = data.azurerm_role_definition.role_name[each.key].id
-#  principal_id       = each.value.principal_id
-#}
