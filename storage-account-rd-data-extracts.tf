@@ -9,10 +9,6 @@ data "azuread_group" "sc_group" {
   security_enabled = true
 }
 
-data "azurerm_client_config" "this" {}
-
-data "azurerm_subscription" "primary" {
-}
 
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
