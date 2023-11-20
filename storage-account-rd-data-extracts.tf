@@ -2,22 +2,11 @@ locals {
   rd_data_extract_product         = "rddataextract"
   rd_data_extract_account_name    = join("", [local.rd_data_extract_product, var.env])
   rd_data_extract_container_name  = "rd-data-extract"
-
-  allowed_roles = [
-    "Storage Blob Data Contributor",
-    "Storage Blob Delegator",
-    "Storage Blob Data Reader"
-  ]
 }
 
 data "azuread_group" "sc_group" {
   display_name     = "DTS Ref Data SC"
   security_enabled = true
-}
-
-data "azurerm_client_config" "this" {}
-
-data "azurerm_subscription" "primary" {
 }
 
 module "storage_account_rd_data_extract" {
