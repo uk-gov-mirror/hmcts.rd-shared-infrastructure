@@ -23,6 +23,9 @@ module "storage_account_rd_data_extract" {
   enable_https_traffic_only = true
 
   pim_roles = {
+    "Storage Account Contributor" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
     "Storage Blob Data Contributor" = {
       principal_id = data.azuread_group.sc_group.id
     }
