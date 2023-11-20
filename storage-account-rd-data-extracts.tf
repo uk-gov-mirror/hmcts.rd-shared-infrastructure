@@ -2,25 +2,6 @@ locals {
   rd_data_extract_product         = "rddataextract"
   rd_data_extract_account_name    = join("", [local.rd_data_extract_product, var.env])
   rd_data_extract_container_name  = "rd-data-extract"
-}
-
-data "azuread_group" "sc_group" {
-  display_name     = "DTS Ref Data SC"
-  security_enabled = true
-}
-
-module "storage_account_rd_data_extract" {
-  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
-  env                      = var.env
-  storage_account_name     = local.rd_data_extract_account_name
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = var.location
-  account_kind             = var.rd_data_extract_storage_account_kind
-  account_tier             = "Standard"
-  account_replication_type = var.rd_data_extract_storage_repl_type
-  access_tier              = var.rd_data_extract_storage_access_tier
-
-  enable_https_traffic_only = true
 
   pim_roles = {
     "Storage Account Contributor" = {
@@ -36,6 +17,34 @@ module "storage_account_rd_data_extract" {
       principal_id = data.azuread_group.sc_group.id
     }
   }
+}
+
+data "azuread_group" "sc_group" {
+  display_name     = "DTS Ref Data SC"
+  security_enabled = true
+}
+
+data "azurerm_role_definition" "role_name" {
+  for_each = local.pim_roles
+
+  name  = each.key
+  scope = data.azuread_group.sc_group.id
+}
+
+module "storage_account_rd_data_extract" {
+  source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
+  env                      = var.env
+  storage_account_name     = local.rd_data_extract_account_name
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = var.location
+  account_kind             = var.rd_data_extract_storage_account_kind
+  account_tier             = "Standard"
+  account_replication_type = var.rd_data_extract_storage_repl_type
+  access_tier              = var.rd_data_extract_storage_access_tier
+
+  enable_https_traffic_only = true
+
+  pim_roles = local.pim_roles
 
   // Tags
   common_tags  = local.tags
@@ -65,4 +74,12 @@ resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_primary_key
   name         = "rd-data-extract-storage-account-primary-key"
   value        = module.storage_account_rd_data_extract.storageaccount_primary_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
+}
+
+resource "azurerm_pim_eligible_role_assignment" "this" {
+  for_each = local.pim_roles
+
+  scope              = module.storage_account_rd_data_extract.storageaccount_id
+  role_definition_id = data.azurerm_role_definition.role_name[each.key].id
+  principal_id       = each.value.principal_id
 }
