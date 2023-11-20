@@ -24,13 +24,6 @@ data "azuread_group" "sc_group" {
   security_enabled = true
 }
 
-data "azurerm_role_definition" "role_name" {
-  for_each = local.pim_roles
-
-  name  = each.key
-  scope = data.azuread_group.sc_group.id
-}
-
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
   env                      = var.env
@@ -44,7 +37,7 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  pim_roles = local.pim_roles
+  pim_roles = var.env != prod ? {} :local.pim_roles
 
   // Tags
   common_tags  = local.tags
@@ -74,12 +67,4 @@ resource "azurerm_key_vault_secret" "rd_data_extract_storage_account_primary_key
   name         = "rd-data-extract-storage-account-primary-key"
   value        = module.storage_account_rd_data_extract.storageaccount_primary_access_key
   key_vault_id = module.rd_key_vault.key_vault_id
-}
-
-resource "azurerm_pim_eligible_role_assignment" "this" {
-  for_each = local.pim_roles
-
-  scope              = module.storage_account_rd_data_extract.storageaccount_id
-  role_definition_id = data.azurerm_role_definition.role_name[each.key].id
-  principal_id       = each.value.principal_id
 }
