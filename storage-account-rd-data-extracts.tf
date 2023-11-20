@@ -3,7 +3,7 @@ locals {
   rd_data_extract_account_name    = join("", [local.rd_data_extract_product, var.env])
   rd_data_extract_container_name  = "rd-data-extract"
 
-  pim_roles = {
+  pim_roles = var.env != prod ? {} : {
     "Storage Account Contributor" = {
       principal_id = data.azuread_group.sc_group.id
     }
