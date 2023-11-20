@@ -4,6 +4,11 @@ locals {
   rd_data_extract_container_name  = "rd-data-extract"
 }
 
+data "azuread_group" "sc_group" {
+  display_name     = "DTS Ref Data SC (env:production)"
+  security_enabled = true
+}
+
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
   env                      = var.env
@@ -17,12 +22,23 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
+  pim_roles = {
+    "Storage Blob Data Contributor" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Data Reader" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+  }
+
   // Tags
   common_tags  = local.tags
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
   default_action = "Allow"
-
 }
 
 resource "azurerm_storage_container" "data_extract_service_container" {

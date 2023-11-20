@@ -37,7 +37,7 @@ module "storage_account" {
   destroy_me   = var.destroy_me
 
   sa_subnets = local.all_valid_subnets
-
+  ip_rules                   = var.ip_rules
 }
 
 resource "azurerm_storage_container" "service_containers" {
