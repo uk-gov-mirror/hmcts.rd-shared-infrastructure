@@ -9,7 +9,6 @@ data "azuread_group" "sc_group" {
   security_enabled = true
 }
 
-
 module "storage_account_rd_data_extract" {
   source                   = "git@github.com:hmcts/cnp-module-storage-account?ref=master"
   env                      = var.env
