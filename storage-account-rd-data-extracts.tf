@@ -4,8 +4,9 @@ locals {
   rd_data_extract_container_name  = "rd-data-extract"
 
   allowed_roles = [
-    "Storage Account Delegator",
+    "Storage Blob Data Contributor",
     "Storage Blob Delegator",
+    "Storage Blob Data Reader"
   ]
 }
 
@@ -33,10 +34,13 @@ module "storage_account_rd_data_extract" {
   enable_https_traffic_only = true
 
   pim_roles = {
-    "Storage Account Delegator" = {
+    "Storage Blob Data Contributor" = {
       principal_id = data.azuread_group.sc_group.id
     }
     "Storage Blob Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Data Reader" = {
       principal_id = data.azuread_group.sc_group.id
     }
   }
