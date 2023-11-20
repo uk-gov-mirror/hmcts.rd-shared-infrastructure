@@ -38,6 +38,9 @@ module "storage_account" {
 
   sa_subnets = local.all_valid_subnets
 
+  network_rules {
+    ip_rules                   = var.ip_rules
+  }
 }
 
 resource "azurerm_storage_container" "service_containers" {
