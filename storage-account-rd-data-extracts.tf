@@ -4,6 +4,9 @@ locals {
   rd_data_extract_container_name  = "rd-data-extract"
 
   pim_roles = var.env != "prod" ? {} : {
+    "Storage Account Contributor" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
     "Storage Blob Data Contributor" = {
       principal_id = data.azuread_group.sc_group.id
     }
