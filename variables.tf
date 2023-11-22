@@ -168,7 +168,10 @@ variable "additional_managed_identities_access" {
 variable "ip_rules" {
   type        = list(string)
   description = "(Optional) List of public IP addresses which will have access to storage account."
-  default     = []
+  default     = [
+    "86.184.235.104", // Andy
+    "86.166.135.121" // Lukasz
+  ]
 }
 
 

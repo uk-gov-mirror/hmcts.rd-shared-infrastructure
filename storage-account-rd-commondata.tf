@@ -32,6 +32,8 @@ module "storage_account_rd_commondata" {
 
   pim_roles = local.cd_pim_roles
 
+  ip_rules = var.ip_rules
+
   // Tags
   common_tags  = local.tags
   team_contact = var.team_contact
