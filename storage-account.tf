@@ -45,6 +45,8 @@ module "storage_account" {
 
   pim_roles = local.pim_roles
 
+  ip_rules = var.ip_rules
+
   // Tags
   common_tags  = local.tags
   team_contact = var.team_contact

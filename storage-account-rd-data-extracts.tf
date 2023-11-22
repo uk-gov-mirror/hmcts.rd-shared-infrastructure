@@ -36,6 +36,8 @@ module "storage_account_rd_data_extract" {
 
   pim_roles = local.de_pim_roles
 
+  ip_rules = var.ip_rules
+
   // Tags
   common_tags  = local.tags
   team_contact = var.team_contact
