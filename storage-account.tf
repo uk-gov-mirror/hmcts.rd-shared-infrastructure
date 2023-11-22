@@ -14,6 +14,18 @@ locals {
   cft_prod_subnets = var.env == "prod" ? [data.azurerm_subnet.prod_aks_00_subnet.id, data.azurerm_subnet.prod_aks_01_subnet.id] : []
 
   all_valid_subnets = concat(local.valid_subnets, local.cft_prod_subnets)
+
+  pim_roles = var.env != "prod" ? {} : {
+    "Storage Blob Data Contributor" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Data Reader" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+  }
 }
 
 module "storage_account" {
@@ -31,13 +43,14 @@ module "storage_account" {
   //  enable_file_encryption    = true
   enable_https_traffic_only = true
 
+  pim_roles = local.pim_roles
+
   // Tags
   common_tags  = local.tags
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
 
   sa_subnets = local.all_valid_subnets
-  ip_rules                   = var.ip_rules
 }
 
 resource "azurerm_storage_container" "service_containers" {
