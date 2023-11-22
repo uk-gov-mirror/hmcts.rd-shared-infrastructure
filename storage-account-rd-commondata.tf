@@ -3,6 +3,18 @@ locals {
   rd_cd_account_name        = join("", [local.cd_product, var.env])
   cd_container_name         = "rd-common-data"
   cd_container_archive_name = "rd-common-data-archive"
+
+  cd_pim_roles = var.env != "prod" ? {} : {
+    "Storage Blob Data Contributor" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Data Reader" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+  }
 }
 
 module "storage_account_rd_commondata" {
@@ -18,7 +30,7 @@ module "storage_account_rd_commondata" {
 
   enable_https_traffic_only = true
 
-  pim_roles = var.env != "prod" ? {} : var.pim_roles
+  pim_roles = local.cd_pim_roles
 
   // Tags
   common_tags  = local.tags
