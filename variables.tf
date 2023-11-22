@@ -175,7 +175,7 @@ variable "pim_roles" {
   type = map(object({
     principal_id = string
   }))
-  default = var.env != "prod" ? {} : {
+  default = {
     "Storage Blob Data Contributor" = {
       principal_id = data.azuread_group.sc_group.id
     }

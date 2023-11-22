@@ -22,7 +22,7 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  pim_roles = var.pim_roles
+  pim_roles = var.env != "prod" ? {} : var.pim_roles
 
   // Tags
   common_tags  = local.tags
