@@ -3,18 +3,6 @@ locals {
   rd_prd_account_name        = join("", [local.prd_product, var.env])
   prd_container_name         = "rd-prd-data"
   prd_container_archive_name = "rd-prd-data-archive"
-
-  pim_roles = var.env != "prod" ? {} : {
-    "Storage Blob Data Contributor" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Delegator" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Data Reader" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-  }
 }
 
 module "storage_account_rd_professional" {
@@ -30,7 +18,7 @@ module "storage_account_rd_professional" {
 
   enable_https_traffic_only = true
 
-  pim_roles = local.pim_roles
+  pim_roles = var.pim_roles
 
   // Tags
   common_tags  = local.tags

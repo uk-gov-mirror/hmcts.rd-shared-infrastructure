@@ -170,3 +170,23 @@ variable "ip_rules" {
   description = "(Optional) List of public IP addresses which will have access to storage account."
   default     = []
 }
+
+variable "pim_roles" {
+  type = map(object({
+    principal_id = string
+  }))
+  default = var.env != "prod" ? {} : {
+    "Storage Blob Data Contributor" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Delegator" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+    "Storage Blob Data Reader" = {
+      principal_id = data.azuread_group.sc_group.id
+    }
+  }
+  description = "{ 'Role name' = { principal_id = 'principal_id' } }, only certain roles are supported"
+}
+
+

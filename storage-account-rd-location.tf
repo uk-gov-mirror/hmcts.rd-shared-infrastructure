@@ -3,18 +3,6 @@ locals {
   rd_location_account_name  = join("", [local.product, var.env])
   container_name            = "lrd-ref-data"
   container_archive_name    = "lrd-ref-data-archive"
-
-  pim_roles = var.env != "prod" ? {} : {
-    "Storage Blob Data Contributor" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Delegator" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Data Reader" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-  }
 }
 
 module "storage_account_rd_location" {
@@ -30,7 +18,7 @@ module "storage_account_rd_location" {
 
   enable_https_traffic_only = true
 
-  pim_roles = local.pim_roles
+  pim_roles = var.pim_roles
 
   // Tags
   common_tags  = local.tags

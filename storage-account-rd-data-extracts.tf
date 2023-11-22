@@ -2,18 +2,6 @@ locals {
   rd_data_extract_product         = "rddataextract"
   rd_data_extract_account_name    = join("", [local.rd_data_extract_product, var.env])
   rd_data_extract_container_name  = "rd-data-extract"
-
-  pim_roles = var.env != "prod" ? {} : {
-    "Storage Blob Data Contributor" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Delegator" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-    "Storage Blob Data Reader" = {
-      principal_id = data.azuread_group.sc_group.id
-    }
-  }
 }
 
 data "azuread_group" "sc_group" {
@@ -34,7 +22,7 @@ module "storage_account_rd_data_extract" {
 
   enable_https_traffic_only = true
 
-  pim_roles = local.pim_roles
+  pim_roles = var.pim_roles
 
   // Tags
   common_tags  = local.tags
