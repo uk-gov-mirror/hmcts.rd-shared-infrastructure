@@ -42,7 +42,8 @@ module "storage_account_rd_data_extract" {
   common_tags  = local.tags
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
-  default_action = "Allow"
+  // Set default action to "Allow" below if you need to override the ip_rules and sa_subnets, eg to allow access to blob storage to someone outside the VPN.
+  default_action = "Deny"
 
   sa_subnets = local.all_valid_subnets
 }
