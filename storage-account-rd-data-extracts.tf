@@ -43,6 +43,8 @@ module "storage_account_rd_data_extract" {
   team_contact = var.team_contact
   destroy_me   = var.destroy_me
   default_action = "Allow"
+
+  sa_subnets = local.all_valid_subnets
 }
 
 resource "azurerm_storage_container" "data_extract_service_container" {
