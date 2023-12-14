@@ -1,14 +1,9 @@
-locals {
-  appinsights_name = join("-", [var.product, var.env])
-}
-
-
 module "application_insights" {
   source = "git@github.com:hmcts/terraform-module-application-insights?ref=main"
 
   env                 = var.env
   product             = var.product
-  name                = local.appinsights_name
+  name                = var.product
   location            = var.appinsights_location
   resource_group_name = azurerm_resource_group.rg.name
 
