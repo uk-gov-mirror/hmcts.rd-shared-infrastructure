@@ -170,7 +170,7 @@ variable "ip_rules" {
   description = "(Optional) List of public IP addresses which will have access to storage account."
   default     = [
     "86.184.233.206", // Andy
-    "86.145.5.189", // Lukasz
+    "86.175.85.72", // Lukasz
     "77.103.1.170", // Kiran
     "92.2.219.160", // Sabina
     "149.22.215.15", // Sahitya
