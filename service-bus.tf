@@ -21,7 +21,6 @@ module "servicebus-namespace" {
   common_tags         = local.tags
   resource_group_name = local.resource_group_name
   sku                 = var.sku
-  premium_messaging_partitions = var.premium_messaging_partitions
 }
 
 
