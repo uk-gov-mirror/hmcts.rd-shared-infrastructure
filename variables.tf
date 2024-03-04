@@ -182,3 +182,9 @@ variable "sku" {
   default     = "Standard"
   description = "SKU type(Basic, Standard and Premium)"
 }
+
+
+variable "premium_messaging_partitions" {
+  default     = 1
+  description = "Premium Messaging Partitions"
+}
