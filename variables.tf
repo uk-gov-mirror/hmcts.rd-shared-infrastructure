@@ -185,6 +185,7 @@ variable "sku" {
 
 
 variable "premium_messaging_partitions" {
-  default     = 1
-  description = "Premium Messaging Partitions"
+  type        = number
+  default     = 0
+  description = "Specifies the number of messaging partitions. Defaults to 1 when using Premium SKU. Options when using Premium SKU are (1, 2, 4)."
 }
