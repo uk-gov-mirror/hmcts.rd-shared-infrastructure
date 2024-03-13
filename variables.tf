@@ -169,11 +169,9 @@ variable "ip_rules" {
   type        = list(string)
   description = "(Optional) List of public IP addresses which will have access to storage account."
   default     = [
-    "86.184.233.206", // Andy
-    "86.179.184.125", // Lukasz
+    "31.54.163.138", // Lukasz
     "77.103.1.170", // Kiran
     "92.2.219.160", // Sabina
-    "149.22.215.15", // Sahitya
   ]
 }
 
