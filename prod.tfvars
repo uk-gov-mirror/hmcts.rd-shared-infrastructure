@@ -6,4 +6,4 @@ rd_storage_repl_type   = "ZRS"
 rd_storage_access_tier = "Hot"
 
 rd_location_storage_access_tier = "Hot"
-sku = "Premium"
+sku_service_bus = "Premium"
