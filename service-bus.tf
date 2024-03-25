@@ -20,6 +20,7 @@ module "servicebus-namespace" {
   env                 = var.env
   common_tags         = local.tags
   resource_group_name = local.resource_group_name
+  sku                 = var.sku_service_bus
 }
 
 
