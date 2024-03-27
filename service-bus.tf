@@ -37,6 +37,7 @@ module "caseworker-subscription" {
   namespace_name        = module.servicebus-namespace.name
   topic_name            = module.caseworker-topic.name
   resource_group_name   = local.resource_group_name
+  depends_on = [module.caseworker-topic]
 }
 
 module "judicial-topic" {
@@ -52,6 +53,7 @@ module "judicial-subscription" {
   namespace_name        = module.servicebus-namespace.name
   topic_name            = module.judicial-topic.name
   resource_group_name   = local.resource_group_name
+  depends_on = [module.judicial-topic]
 }
 
 module "am-orm-judicial-test-pr-subscription" {
