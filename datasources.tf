@@ -67,14 +67,14 @@ data "azurerm_subnet" "aks_01" {
 #  name                 = "rdo-sftp-public"
 #  virtual_network_name = data.azurerm_virtual_network.rdo_sftp_vnet.name
 #  resource_group_name  = data.azurerm_virtual_network.rdo_sftp_vnet.resource_group_name
-#ß}
+#}
 
-data "azurerm_subnet" "rdo_sftp_private" {
-  provider             = azurerm.rdo
-  name                 = "rdo-sftp-private"
-  virtual_network_name = data.azurerm_virtual_network.rdo_sftp_vnet.name
-  resource_group_name  = data.azurerm_virtual_network.rdo_sftp_vnet.resource_group_name
-}
+#data "azurerm_subnet" "rdo_sftp_private" {
+#  provider             = azurerm.rdo
+#  name                 = "rdo-sftp-private"
+#  virtual_network_name = data.azurerm_virtual_network.rdo_sftp_vnet.name
+#  resource_group_name  = data.azurerm_virtual_network.rdo_sftp_vnet.resource_group_name
+#}
 
 data "azurerm_virtual_network" "bau_bais_prod_vnet" {
   provider            = azurerm.sds_prod
