@@ -6,8 +6,6 @@ locals {
     data.azurerm_subnet.aks_00.id,
     data.azurerm_subnet.aks_01.id,
     data.azurerm_subnet.jenkins_subnet.id,
-    data.azurerm_subnet.rdo_sftp_public.id,
-    data.azurerm_subnet.rdo_sftp_private.id,
     data.azurerm_subnet.bau_bais_private_prod.id
   ]
 
