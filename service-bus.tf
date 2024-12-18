@@ -57,7 +57,7 @@ module "judicial-subscription" {
 }
 
 module "am-orm-judicial-test-pr-subscription" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=master"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
   count               = lower(var.env) == "aat" ? 1 : 0
   name                = "am-orm-judicial-preview-functional-test"
   namespace_name      = module.servicebus-namespace.name
