@@ -60,9 +60,8 @@ module "am-orm-judicial-test-pr-subscription" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
   count               = lower(var.env) == "aat" ? 1 : 0
   name                = "am-orm-judicial-preview-functional-test"
-  namespace_name      = module.servicebus-namespace.name
   topic_name          = module.judicial-topic.name
-  resource_group_name = local.resource_group_name
+  namespace_id        = module.servicebus-namespace.id
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-shared-access-key" {
