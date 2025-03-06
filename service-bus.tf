@@ -40,7 +40,6 @@ module "caseworker-subscription" {
   namespace_name      = module.servicebus-namespace.name
 }
 
-
 module "judicial-topic" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=OPS/DTSPO-23183-RD"
   name                = local.judicial_topic_name
