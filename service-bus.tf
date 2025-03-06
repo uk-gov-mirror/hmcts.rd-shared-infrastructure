@@ -32,11 +32,12 @@ module "caseworker-topic" {
 }
 
 module "caseworker-subscription" {
-  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=OPS/DTSPO-23183-RD"
-  name         = local.caseworker_subscription_name
-  topic_id     = module.caseworker-topic.id
-  depends_on   = [module.caseworker-topic]
-  namespace_id = module.servicebus-namespace.id
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=OPS/DTSPO-23183-RD"
+  name                = local.caseworker_subscription_name
+  topic_id            = module.caseworker-topic.id
+  depends_on          = [module.caseworker-topic]
+  namespace_id        = module.servicebus-namespace.id
+  namespace_name      = module.servicebus-namespace.name
 }
 
 module "judicial-topic" {
