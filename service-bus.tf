@@ -25,14 +25,14 @@ module "servicebus-namespace" {
 
 
 module "caseworker-topic" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=OPS/DTSPO-23183-RD"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=4.x"
   name                = local.caseworker_topic_name
   namespace_name      = module.servicebus-namespace.name
   resource_group_name = local.resource_group_name
 }
 
 module "caseworker-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=OPS/DTSPO-23183-RD"
+  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
   name           = local.caseworker_subscription_name
   topic_id       = module.caseworker-topic.id
   depends_on     = [module.caseworker-topic]
@@ -41,14 +41,14 @@ module "caseworker-subscription" {
 }
 
 module "judicial-topic" {
-  source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=OPS/DTSPO-23183-RD"
+  source              = "git@github.com:hmcts/terraform-module-servicebus-topic?ref=4.x"
   name                = local.judicial_topic_name
   namespace_name      = module.servicebus-namespace.name
   resource_group_name = local.resource_group_name
 }
 
 module "judicial-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=OPS/DTSPO-23183-RD"
+  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
   name           = local.judicial_subscription_name
   topic_id       = module.judicial-topic.id
   depends_on     = [module.judicial-topic]
@@ -57,7 +57,7 @@ module "judicial-subscription" {
 }
 
 module "am-orm-judicial-test-pr-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=OPS/DTSPO-23183-RD"
+  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
   count          = lower(var.env) == "aat" ? 1 : 0
   name           = "am-orm-judicial-preview-functional-test"
   topic_id       = module.judicial-topic.id
