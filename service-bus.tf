@@ -61,7 +61,6 @@ module "am-orm-judicial-test-pr-subscription" {
   count          = lower(var.env) == "aat" ? 1 : 0
   name           = "am-orm-judicial-preview-functional-test"
   topic_id       = module.judicial-topic.id
-  namespace_id   = module.servicebus-namespace.id
   namespace_name = module.servicebus-namespace.name
 }
 
