@@ -37,7 +37,6 @@ module "caseworker-subscription" {
   topic_id       = module.caseworker-topic.id
   depends_on     = [module.caseworker-topic]
   namespace_id   = module.servicebus-namespace.id
-  namespace_name = module.servicebus-namespace.name
 }
 
 module "judicial-topic" {
