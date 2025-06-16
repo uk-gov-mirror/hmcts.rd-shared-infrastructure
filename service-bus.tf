@@ -34,7 +34,7 @@ module "caseworker-topic" {
 module "caseworker-subscription" {
   source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
   name           = local.caseworker_subscription_name
-  topic_id       = module.caseworker-topic.id
+  topic_name     = module.caseworker-topic.id
   depends_on     = [module.caseworker-topic]
   namespace_name = module.servicebus-namespace.name
 }
