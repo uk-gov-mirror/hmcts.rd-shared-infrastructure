@@ -48,11 +48,12 @@ module "judicial-topic" {
 }
 
 module "judicial-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
-  name           = local.judicial_subscription_name
-  topic_name     = local.judicial_topic_name
-  depends_on     = [module.judicial-topic]
-  namespace_name = module.servicebus-namespace.name
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
+  name                = local.judicial_subscription_name
+  topic_name          = local.judicial_topic_name
+  depends_on          = [module.judicial-topic]
+  namespace_name      = module.servicebus-namespace.name
+  resource_group_name = local.resource_group_name
 }
 
 module "am-orm-judicial-test-pr-subscription" {
