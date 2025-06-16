@@ -50,7 +50,7 @@ module "judicial-topic" {
 module "judicial-subscription" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
   name                = local.judicial_subscription_name
-  topic_id            = local.judicial_topic_id
+  topic_id            = module.judicial-topic.id
   depends_on          = [module.judicial-topic]
   namespace_name      = module.servicebus-namespace.name
   resource_group_name = local.resource_group_name
@@ -60,7 +60,7 @@ module "am-orm-judicial-test-pr-subscription" {
   source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
   count               = lower(var.env) == "aat" ? 1 : 0
   name                = "am-orm-judicial-preview-functional-test"
-  topic_id            = local.judicial_topic_id
+  topic_id            = module.judicial-topic.id
   namespace_name      = module.servicebus-namespace.name
   resource_group_name = local.resource_group_name
 }
