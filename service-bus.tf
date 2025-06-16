@@ -32,11 +32,11 @@ module "caseworker-topic" {
 }
 
 module "caseworker-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
-  name           = local.caseworker_subscription_name
-  topic_id       = module.caseworker-topic.id
-  depends_on     = [module.caseworker-topic]
-  namespace_id   = module.servicebus-namespace.id
+  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
+  name         = local.caseworker_subscription_name
+  topic_id     = module.caseworker-topic.id
+  depends_on   = [module.caseworker-topic]
+  namespace_id = module.servicebus-namespace.id
 }
 
 module "judicial-topic" {
@@ -47,19 +47,19 @@ module "judicial-topic" {
 }
 
 module "judicial-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
-  name           = local.judicial_subscription_name
-  topic_id       = module.judicial-topic.id
-  depends_on     = [module.judicial-topic]
-  namespace_id   = module.servicebus-namespace.id
+  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
+  name         = local.judicial_subscription_name
+  topic_id     = module.judicial-topic.id
+  depends_on   = [module.judicial-topic]
+  namespace_id = module.servicebus-namespace.id
 }
 
 module "am-orm-judicial-test-pr-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
-  count          = lower(var.env) == "aat" ? 1 : 0
-  name           = "am-orm-judicial-preview-functional-test"
-  topic_id       = module.judicial-topic.id
-  namespace_id   = module.servicebus-namespace.id
+  source       = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=4.x"
+  count        = lower(var.env) == "aat" ? 1 : 0
+  name         = "am-orm-judicial-preview-functional-test"
+  topic_id     = module.judicial-topic.id
+  namespace_id = module.servicebus-namespace.id
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-shared-access-key" {
