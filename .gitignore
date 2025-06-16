@@ -7,3 +7,4 @@ github-apikey
 .idea/
 *.iml
 .gradle/
+.terraform.lock.hcl
