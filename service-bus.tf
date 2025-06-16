@@ -55,11 +55,12 @@ module "judicial-subscription" {
 }
 
 module "am-orm-judicial-test-pr-subscription" {
-  source         = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
-  count          = lower(var.env) == "aat" ? 1 : 0
-  name           = "am-orm-judicial-preview-functional-test"
-  topic_id       = module.judicial-topic.id
-  namespace_name = module.servicebus-namespace.name
+  source              = "git@github.com:hmcts/terraform-module-servicebus-subscription?ref=DTSPO-26253/use-namespace-id"
+  count               = lower(var.env) == "aat" ? 1 : 0
+  name                = "am-orm-judicial-preview-functional-test"
+  topic_id            = local.judicial_topic_name
+  namespace_name      = module.servicebus-namespace.name
+  resource_group_name = local.resource_group_name
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-shared-access-key" {
