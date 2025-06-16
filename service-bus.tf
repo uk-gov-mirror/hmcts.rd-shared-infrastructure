@@ -52,7 +52,6 @@ module "judicial-subscription" {
   topic_id       = module.judicial-topic.id
   depends_on     = [module.judicial-topic]
   namespace_id   = module.servicebus-namespace.id
-  namespace_name = module.servicebus-namespace.name
 }
 
 module "am-orm-judicial-test-pr-subscription" {
@@ -61,7 +60,6 @@ module "am-orm-judicial-test-pr-subscription" {
   name           = "am-orm-judicial-preview-functional-test"
   topic_id       = module.judicial-topic.id
   namespace_id   = module.servicebus-namespace.id
-  namespace_name = module.servicebus-namespace.name
 }
 
 resource "azurerm_key_vault_secret" "caseworker-topic-primary-send-listen-shared-access-key" {
